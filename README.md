@@ -71,7 +71,7 @@ which is the one of four moves on file for this state.
 | _TREE_SEARCH_ARRAY_SIZE | 65536 | Number of (game-state bytes, move-bytes) |
 | _NEGAMAX_NODE_BYTE_SIZE | 121 | Number of bytes needed to encode a negamax node |
 | _NEGAMAX_MOVE_BYTE_SIZE | 4 | Number of bytes needed to encode a negamax move (in their separate, global array) |
-| ZHASH_TABLE_SIZE | ??? | Number of Zobrist keys |
+| ZHASH_TABLE_SIZE | 1257 | Number of Zobrist keys |
 | _WHITE_TO_MOVE | 0 | Indication that white is to move in the current game state |
 | _BLACK_TO_MOVE | 1 | Indication that black is to move in the current game state |
 

@@ -1317,7 +1317,73 @@ unsigned int getPawnEnPassantAttacks(unsigned char index, GameState* gs, Move* b
                          }
                        break;
             case 8:                                                 //  Previous pawn double-move occurred in column H.
-                       if(col(index) == 6)                          //  "index" is in the column next to column H, where the double move occurred.
+                       if(col(index) == 6 || col(index) == 8)       //  "index" is in the column next to column H, where the double move occurred.
+                         {
+                           if(col(index) == 6 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = ur(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 8 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = ul(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 6 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = dr(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 8 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = dl(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                         }
+                       break;
+            case 9:                                                 //  Previous pawn double-move occurred in column I.
+                       if(col(index) == 7 || col(index) == 9)       //  "index" is in the column next to column I, where the double move occurred.
+                         {
+                           if(col(index) == 7 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = ur(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 9 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = ul(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 7 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = dr(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                           else if(col(index) == 9 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                             {
+                               buffer[movesCtr].from = index;
+                               buffer[movesCtr].to = dl(index);
+                               buffer[movesCtr].promo = _NO_PROMO;
+                               movesCtr++;
+                             }
+                         }
+                       break;
+            case 10:                                                //  Previous pawn double-move occurred in column J.
+                       if(col(index) == 8)                          //  "index" is in the column next to column J, where the double move occurred.
                          {
                            if(isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
                              {
@@ -1354,7 +1420,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
       {
         switch(gs->previousDoublePawnMove)                          //  In which column did the pawn double-move previously occur?
           {
-            case 128:                                               //  Pawn double-move previously occurred in column A.
+            case 1:                                                 //  Pawn double-move previously occurred in column A.
                                                                     //  Move takes a pawn to an empty square in column A.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 0)
                         {
@@ -1366,7 +1432,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 64:                                                //  Pawn double-move previously occurred in column B.
+            case 2:                                                 //  Pawn double-move previously occurred in column B.
                                                                     //  Move takes a pawn to an empty square in column B.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 1)
                         {
@@ -1380,7 +1446,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 32:                                                //  Pawn double-move previously occurred in column C.
+            case 3:                                                 //  Pawn double-move previously occurred in column C.
                                                                     //  Move takes a pawn to an empty square in column C.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 2)
                         {
@@ -1394,7 +1460,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 16:                                                //  Pawn double-move previously occurred in column D.
+            case 4:                                                 //  Pawn double-move previously occurred in column D.
                                                                     //  Move takes a pawn to an empty square in column D.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 3)
                         {
@@ -1408,7 +1474,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 8:                                                 //  Pawn double-move previously occurred in column E.
+            case 5:                                                 //  Pawn double-move previously occurred in column E.
                                                                     //  Move takes a pawn to an empty square in column E.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 4)
                         {
@@ -1422,7 +1488,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 4:                                                 //  Pawn double-move previously occurred in column F.
+            case 6:                                                 //  Pawn double-move previously occurred in column F.
                                                                     //  Move takes a pawn to an empty square in column F.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 5)
                         {
@@ -1436,7 +1502,7 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 2:                                                 //  Pawn double-move previously occurred in column G.
+            case 7:                                                 //  Pawn double-move previously occurred in column G.
                                                                     //  Move takes a pawn to an empty square in column G.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 6)
                         {
@@ -1450,9 +1516,37 @@ bool isEnPassantAttack(Move* move, GameState* gs)
                             return true;
                         }
                       break;
-            case 1:                                                 //  Pawn double-move previously occurred in column H.
+            case 8:                                                 //  Pawn double-move previously occurred in column H.
                                                                     //  Move takes a pawn to an empty square in column H.
                       if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 7)
+                        {
+                                                                    //  White captures black en passant.
+                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                            return true;
+                                                                    //  Black captures white en passant.
+                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                            return true;
+                        }
+                      break;
+            case 9:                                                 //  Pawn double-move previously occurred in column I.
+                                                                    //  Move takes a pawn to an empty square in column I.
+                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 8)
+                        {
+                                                                    //  White captures black en passant.
+                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                            return true;
+                                                                    //  Black captures white en passant.
+                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                            return true;
+                        }
+                      break;
+            case 10:                                                //  Pawn double-move previously occurred in column J.
+                                                                    //  Move takes a pawn to an empty square in column J.
+                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 9)
                         {
                                                                     //  White captures black en passant.
                           if(isWhite(move->from, gs) && isBlack(r(move->from), gs) && move->to == ur(move->from))

@@ -2,7 +2,7 @@
 
 Game logic module for the human player.
 
-sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getCurrentState','_getMovesBuffer','_sideToMove_client','_setup_client','_isWhite_client','_isBlack_client','_isEmpty_client','_isPawn_client','_isKnight_client','_isBishop_client','_isRook_client','_isArchbishop_client','_isChancellor_client','_isQueen_client','_isKing_client','_whiteKingsidePrivilege_client','_whiteQueensidePrivilege_client','_whiteCastled_client','_blackKingsidePrivilege_client','_blackQueensidePrivilege_client','_blackCastled_client','_getMovesIndex_client','_makeMove_client','_isTerminal_client','_isWin_client','_draw']" -Wl,--no-entry "gamelogic.c" -o "gamelogic.wasm"
+sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getCurrentState','_getMovesBuffer','_sideToMove_client','_setup_client','_isWhite_client','_isBlack_client','_isEmpty_client','_isPawn_client','_isKnight_client','_isBishop_client','_isRook_client','_isArchbishop_client','_isChancellor_client','_isQueen_client','_isKing_client','_whiteKingsidePrivilege_client','_whiteQueensidePrivilege_client','_whiteCastled_client','_blackKingsidePrivilege_client','_blackQueensidePrivilege_client','_blackCastled_client','_isCastle_client','_getMovesIndex_client','_makeMove_client','_isTerminal_client','_isWin_client','_draw']" -Wl,--no-entry "gamelogic.c" -o "gamelogic.wasm"
 
 */
 
@@ -46,6 +46,8 @@ bool whiteCastled_client(void);
 bool blackKingsidePrivilege_client(void);
 bool blackQueensidePrivilege_client(void);
 bool blackCastled_client(void);
+
+bool isCastle_client(unsigned char, unsigned char, unsigned char);
 
 unsigned int getMovesIndex_client(unsigned char);
 void makeMove_client(unsigned char, unsigned char, unsigned char);
@@ -384,6 +386,17 @@ bool blackCastled_client(void)
     GameState gs;
     deserialize(&gs);                                               //  Recover GameState from buffer.
     return gs.blackCastled;
+  }
+
+bool isCastle_client(unsigned char from, unsigned char to, unsigned char promo)
+  {
+    GameState gs;
+    Move move;
+    deserialize(&gs);                                               //  Recover GameState from buffer.
+    move.from = from;
+    move.to = to;
+    move.promo = promo;
+    return isCastle(&move, &gs);
   }
 
 bool isTerminal_client(void)

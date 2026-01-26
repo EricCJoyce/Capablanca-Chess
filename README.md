@@ -69,7 +69,7 @@ which is the one of four moves on file for this state.
 | _TRANSPO_RECORD_BYTE_SIZE | 18 | Number of bytes needed to store a TranspoRecord object |
 | _TRANSPO_TABLE_SIZE | 524288 | Number of TranspoRecords, each 18 bytes |
 | _TREE_SEARCH_ARRAY_SIZE | 65536 | Number of (game-state bytes, move-bytes) |
-| _NEGAMAX_NODE_BYTE_SIZE | 121 | Number of bytes needed to encode a negamax node |
+| _NEGAMAX_NODE_BYTE_SIZE | 138 | Number of bytes needed to encode a negamax node |
 | _NEGAMAX_MOVE_BYTE_SIZE | 4 | Number of bytes needed to encode a negamax move (in their separate, global array) |
 | ZHASH_TABLE_SIZE | 1257 | Number of Zobrist keys |
 | _WHITE_TO_MOVE | 0 | Indication that white is to move in the current game state |

@@ -63,7 +63,7 @@
                                                                        P  P  P  P  P  P  P  P  P  P
                                                                        R  B  Q  N  K  A  N  C  B  R */
 
-#define _SETUP_PAULOVICH          6                                 /* c  r  n  b  a  k  b  n  r  q
+#define _SETUP_PAULOWICH          6                                 /* c  r  n  b  a  k  b  n  r  q
                                                                        p  p  p  p  p  p  p  p  p  p
                                                                        .  .  .  .  .  .  .  .  .  .
                                                                        .  .  .  .  .  .  .  .  .  .
@@ -131,7 +131,7 @@ typedef struct GameStateType                                        //  TOTAL: 6
     char board[_NONE];                                              //  Array of characters.
 
     unsigned char setup;                                            //  In {_SETUP_CAPABLANCA, _SETUP_BIRD, _SETUP_CARRERA, _SETUP_EMBASSY,
-                                                                    //      _SETUP_GROTESQUE, _SETUP_LADOREAN, _SETUP_PAULOVICH, _SETUP_UNIVERS}.
+                                                                    //      _SETUP_GROTESQUE, _SETUP_LADOREAN, _SETUP_PAULOWICH, _SETUP_UNIVERS}.
                                                                     //  This affects castling behavior.
     bool whiteKingsidePrivilege;                                    //  Can white castle kingside?
     bool whiteQueensidePrivilege;                                   //  Can white castle queenside?
@@ -178,8 +178,6 @@ void makeNullMove(GameState*);
 char nowToMove(GameState*);
 char nextToMove(GameState*);
 bool inCheckBy(unsigned char, unsigned char, GameState*);
-bool canKingsideCastle(unsigned char, GameState*);
-bool canQueensideCastle(unsigned char, GameState*);
 unsigned int getMoves(GameState*, Move*);
 unsigned int getMovesIndex(unsigned char, GameState*, Move*);
 
@@ -317,7 +315,7 @@ void makeMove(Move* move, GameState* gs)
             gs->board[79] = _EMPTY;
             gs->board[index - 1] = _BLACK_ROOK;
           }
-        else if(gs->setup == _SETUP_PAULOVICH)                      //  K: 75 to 77, R: 78 to 76.
+        else if(gs->setup == _SETUP_PAULOWICH)                      //  K: 75 to 77, R: 78 to 76.
           {
             gs->board[75] = _EMPTY;
             gs->board[77] = _BLACK_KING;
@@ -362,7 +360,7 @@ void makeMove(Move* move, GameState* gs)
             gs->board[70] = _EMPTY;
             gs->board[index + 1] = _BLACK_ROOK;
           }
-        else if(gs->setup == _SETUP_PAULOVICH)                      //  K: 75 to 73, R: 71 to 74.
+        else if(gs->setup == _SETUP_PAULOWICH)                      //  K: 75 to 73, R: 71 to 74.
           {
             gs->board[75] = _EMPTY;
             gs->board[73] = _BLACK_KING;
@@ -407,7 +405,7 @@ void makeMove(Move* move, GameState* gs)
             gs->board[9] = _EMPTY;
             gs->board[index - 1] = _WHITE_ROOK;
           }
-        else if(gs->setup == _SETUP_PAULOVICH)                      //  K: 5 to 7, R: 8 to 6.
+        else if(gs->setup == _SETUP_PAULOWICH)                      //  K: 5 to 7, R: 8 to 6.
           {
             gs->board[5] = _EMPTY;
             gs->board[7] = _WHITE_KING;
@@ -452,7 +450,7 @@ void makeMove(Move* move, GameState* gs)
             gs->board[0] = _EMPTY;
             gs->board[index + 1] = _WHITE_ROOK;
           }
-        else if(gs->setup == _SETUP_PAULOVICH)                      //  K: 5 to 3, R: 1 to 4.
+        else if(gs->setup == _SETUP_PAULOWICH)                      //  K: 5 to 3, R: 1 to 4.
           {
             gs->board[5] = _EMPTY;
             gs->board[3] = _WHITE_KING;
@@ -494,29 +492,29 @@ void makeMove(Move* move, GameState* gs)
         else if(isRook(move->from, gs) && isWhite(move->from, gs))
           {
                                                                     //  White King's Rook moved: Kingside rights lost.
-                                                                    //  Paulovich's Chess is the only 8 x 10 variant for which the white king's rook is on 8.
+                                                                    //  Paulowich's Chess is the only 8 x 10 variant for which the white king's rook is on 8.
                                                                     //  (Carrera's Chess has no castling anyway; doesn't matter if this gets set.)
-            if((gs->setup == _SETUP_PAULOVICH && move->from == 8) || move->from == 9)
+            if((gs->setup == _SETUP_PAULOWICH && move->from == 8) || move->from == 9)
               gs->whiteKingsidePrivilege = false;                   //  White cannot Kingside.
 
                                                                     //  White Queen's Rook moved: Queenside rights lost.
-                                                                    //  Paulovich's Chess is the only 8 x 10 variant for which the white queens's rook is on 1.
+                                                                    //  Paulowich's Chess is the only 8 x 10 variant for which the white queens's rook is on 1.
                                                                     //  (Carrera's Chess has no castling anyway; doesn't matter if this gets set.)
-            else if((gs->setup == _SETUP_PAULOVICH && move->from == 1) || move->from == 0)
+            else if((gs->setup == _SETUP_PAULOWICH && move->from == 1) || move->from == 0)
               gs->whiteQueensidePrivilege = false;                  //  White cannot Queenside.
           }
         else if(isRook(move->from, gs) && isBlack(move->from, gs))
           {
                                                                     //  Black King's Rook moved: Kingside rights lost.
-                                                                    //  Paulovich's Chess is the only 8 x 10 variant for which the black king's rook is on 78.
+                                                                    //  Paulowich's Chess is the only 8 x 10 variant for which the black king's rook is on 78.
                                                                     //  (Carrera's Chess has no castling anyway; doesn't matter if this gets set.)
-            if((gs->setup == _SETUP_PAULOVICH && move->from == 78) || move->from == 79)
+            if((gs->setup == _SETUP_PAULOWICH && move->from == 78) || move->from == 79)
               gs->blackKingsidePrivilege = false;                   //  Black cannot Kingside.
 
                                                                     //  Black Queen's Rook moved: Queenside rights lost.
-                                                                    //  Paulovich's Chess is the only 8 x 10 variant for which the black queens's rook is on 71.
+                                                                    //  Paulowich's Chess is the only 8 x 10 variant for which the black queens's rook is on 71.
                                                                     //  (Carrera's Chess has no castling anyway; doesn't matter if this gets set.)
-            else if((gs->setup == _SETUP_PAULOVICH && move->from == 71) || move->from == 70)
+            else if((gs->setup == _SETUP_PAULOWICH && move->from == 71) || move->from == 70)
               gs->blackQueensidePrivilege = false;                  //  Black cannot Queenside.
           }
                                                                     //  Pawn promotion
@@ -660,58 +658,6 @@ bool inCheckBy(unsigned char index, unsigned char team, GameState* gs)
       ret = true;
 
     return ret;
-  }
-
-/* This means, "Can I castle RIGHT NOW?" Not, "Do I still have Kingside rights?" */
-bool canKingsideCastle(unsigned char team, GameState* gs)
-  {
-    bool c = false;
-
-    if(team == 'b'     && gs->blackKingsidePrivilege &&
-       (gs->setup == _SETUP_CAPABLANCA && isRook(79, gs) && isBlack(79, gs) && isKing(75, gs) && isBlack(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) &&                    !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs) && !inCheckBy(78, 'w', gs)) ||
-       (gs->setup == _SETUP_BIRD       && isRook(79, gs) && isBlack(79, gs) && isKing(75, gs) && isBlack(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) &&                    !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs) && !inCheckBy(78, 'w', gs)) ||
-       (gs->setup == _SETUP_EMBASSY    && isRook(79, gs) && isBlack(79, gs) && isKing(74, gs) && isBlack(74, gs) && isEmpty(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs)) ||
-//       (gs->setup == _SETUP_GROTESQUE  && isRook(79, gs) && isBlack(79, gs) && isKing(74, gs) && isBlack(74, gs) && isEmpty(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs)) ||
-      )
-      c = true;
-
-    if(team == 'b'     && gs->blackKingsidePrivilege &&
-       isRook(63, gs)  && isBlack(63, gs)            &&
-       isKing(60, gs)  && isBlack(60, gs)            &&
-       isEmpty(61, gs) && isEmpty(62, gs)            &&
-       !inCheckBy(60, 'w', gs) && !inCheckBy(61, 'w', gs) && !inCheckBy(62, 'w', gs))
-      c = true;
-
-    else if(team == 'w'    && gs->whiteKingsidePrivilege &&
-            isRook(7, gs)  && isWhite(7, gs)             &&
-            isKing(4, gs)  && isWhite(4, gs)             &&
-            isEmpty(5, gs) && isEmpty(6, gs)             &&
-            !inCheckBy(4, 'b', gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs))
-      c = true;
-
-    return c;
-  }
-
-/* This means, "Can I castle RIGHT NOW?" Not, "Do I still have Queenside rights?" */
-bool canQueensideCastle(unsigned char team, GameState* gs)
-  {
-    bool c = false;
-
-    if(team == 'b'     && gs->blackQueensidePrivilege        &&
-       isRook(56, gs)  && isBlack(56, gs)                    &&
-       isKing(60, gs)  && isKing(60, gs)                     &&
-       isEmpty(59, gs) && isEmpty(58, gs) && isEmpty(57, gs) &&
-       !inCheckBy(60, 'w', gs) && !inCheckBy(59, 'w', gs) && !inCheckBy(58, 'w', gs))
-      c = true;
-
-    else if(team == 'w'    && gs->whiteQueensidePrivilege      &&
-            isRook(0, gs)  && isWhite(0, gs)                   &&
-            isKing(4, gs)  && isKing(4, gs)                    &&
-            isEmpty(3, gs) && isEmpty(2, gs) && isEmpty(1, gs) &&
-            !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs) && !inCheckBy(2, 'b', gs))
-      c = true;
-
-    return c;
   }
 
 /* THIS FUNCTION FILTERS FOR CHECK!!
@@ -2125,36 +2071,282 @@ unsigned int getKingMoves(unsigned char index, GameState* gs, Move* buffer)
       }
     if(isWhite(index, gs))
       {
-        if(canKingsideCastle('w', gs))
+        switch(gs->setup)
           {
-            buffer[movesCtr].from = 4;
-            buffer[movesCtr].to = 6;
-            buffer[movesCtr].promo = _NO_PROMO;
-            movesCtr++;
-          }
-        if(canQueensideCastle('w', gs))
-          {
-            buffer[movesCtr].from = 4;
-            buffer[movesCtr].to = 2;
-            buffer[movesCtr].promo = _NO_PROMO;
-            movesCtr++;
+            case _SETUP_CAPABLANCA:                                 //  Capablanca/Bird, white, kingside.
+            case _SETUP_BIRD:       if(gs->whiteKingsidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(9, gs) && isWhite(9, gs) && isEmpty(6, gs) && isEmpty(7, gs) && isEmpty(8, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs) && !inCheckBy(7, 'b', gs) && !inCheckBy(8, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 8;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Capablanca/Bird, white, queenside.
+                                    if(gs->whiteQueensidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(0, gs) && isWhite(0, gs) && isEmpty(1, gs) && isEmpty(2, gs) && isEmpty(3, gs) && isEmpty(4, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs) && !inCheckBy(2, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 2;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_EMBASSY:                                    //  Embassy, white, kingside.
+                                    if(gs->whiteKingsidePrivilege && isKing(4, gs) && isWhite(4, gs) && isRook(9, gs) && isWhite(9, gs) && isEmpty(5, gs) && isEmpty(6, gs) && isEmpty(7, gs) && isEmpty(8, gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs) && !inCheckBy(7, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 4;
+                                        buffer[movesCtr].to = 7;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Embassy, white, queenside.
+                                    if(gs->whiteQueensidePrivilege && isKing(4, gs) && isWhite(4, gs) && isRook(0, gs) && isWhite(0, gs) && isEmpty(1, gs) && isEmpty(2, gs) && isEmpty(3, gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs) && !inCheckBy(2, 'b', gs) && !inCheckBy(1, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 4;
+                                        buffer[movesCtr].to = 1;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_GROTESQUE:
+            case _SETUP_LADOREAN:                                   //  Grotesque/Ladorean, white, kingside.
+                                    if(gs->whiteKingsidePrivilege && isKing(4, gs) && isWhite(4, gs) && isRook(9, gs) && isWhite(9, gs) && isEmpty(5, gs) && isEmpty(6, gs) && isEmpty(7, gs) && isEmpty(8, gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 4;
+                                        buffer[movesCtr].to = 6;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(7, 'b', gs))
+                                          {
+                                            buffer[movesCtr].from = 4;
+                                            buffer[movesCtr].to = 7;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+
+                                            if(!inCheckBy(8, 'b', gs))
+                                              {
+                                                buffer[movesCtr].from = 4;
+                                                buffer[movesCtr].to = 8;
+                                                buffer[movesCtr].promo = _NO_PROMO;
+                                                movesCtr++;
+                                              }
+                                          }
+                                      }
+                                                                    //  Grotesque/Ladorean, white, queenside.
+                                    if(gs->whiteQueensidePrivilege && isKing(4, gs) && isWhite(4, gs) && isRook(0, gs) && isWhite(0, gs) && isEmpty(1, gs) && isEmpty(2, gs) && isEmpty(3, gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs) && !inCheckBy(2, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 4;
+                                        buffer[movesCtr].to = 2;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(1, 'b', gs))
+                                          {
+                                            buffer[movesCtr].from = 4;
+                                            buffer[movesCtr].to = 1;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+                                          }
+                                      }
+                                    break;
+            case _SETUP_PAULOWICH:                                  //  Paulowich, white, kingside (technically queenside).
+                                    if(gs->whiteKingsidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(8, gs) && isWhite(8, gs) && isEmpty(6, gs) && isEmpty(7, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs) && !inCheckBy(7, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 7;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Paulowich, white, queenside (technically chancellorside).
+                                    if(gs->whiteQueensidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(1, gs) && isWhite(1, gs) && isEmpty(2, gs) && isEmpty(3, gs) && isEmpty(4, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 3;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_UNIVERS:                                    //  Univers, white, kingside.
+                                    if(gs->whiteKingsidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(9, gs) && isWhite(9, gs) && isEmpty(6, gs) && isEmpty(7, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(6, 'b', gs) && !inCheckBy(7, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 7;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(8, 'b', gs))
+                                          {
+                                            buffer[movesCtr].from = 5;
+                                            buffer[movesCtr].to = 8;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+                                          }
+                                      }
+                                                                    //  Univers, white, queenside.
+                                    if(gs->whiteQueensidePrivilege && isKing(5, gs) && isWhite(5, gs) && isRook(0, gs) && isWhite(0, gs) && isEmpty(1, gs) && isEmpty(2, gs) && isEmpty(3, gs) && isEmpty(4, gs) && !inCheckBy(5, 'b', gs) && !inCheckBy(4, 'b', gs) && !inCheckBy(3, 'b', gs))
+                                      {
+                                        buffer[movesCtr].from = 5;
+                                        buffer[movesCtr].to = 3;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(2, 'b', gs))
+                                          {
+                                            buffer[movesCtr].from = 5;
+                                            buffer[movesCtr].to = 2;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+
+                                            if(!inCheckBy(1, 'b', gs))
+                                              {
+                                                buffer[movesCtr].from = 5;
+                                                buffer[movesCtr].to = 1;
+                                                buffer[movesCtr].promo = _NO_PROMO;
+                                                movesCtr++;
+                                              }
+                                          }
+                                      }
+                                    break;
           }
       }
     else
       {
-        if(canKingsideCastle('b', gs))
+        switch(gs->setup)
           {
-            buffer[movesCtr].from = 60;
-            buffer[movesCtr].to = 62;
-            buffer[movesCtr].promo = _NO_PROMO;
-            movesCtr++;
-          }
-        if(canQueensideCastle('b', gs))
-          {
-            buffer[movesCtr].from = 60;
-            buffer[movesCtr].to = 58;
-            buffer[movesCtr].promo = _NO_PROMO;
-            movesCtr++;
+            case _SETUP_CAPABLANCA:                                 //  Capablanca/Bird, black, kingside.
+            case _SETUP_BIRD:       if(gs->blackKingsidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(79, gs) && isBlack(79, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs) && !inCheckBy(78, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 78;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Capablanca/Bird, black, queenside.
+                                    if(gs->blackQueensidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(70, gs) && isBlack(70, gs) && isEmpty(71, gs) && isEmpty(72, gs) && isEmpty(73, gs) && isEmpty(74, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(73, 'w', gs) && !inCheckBy(72, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 72;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_EMBASSY:                                    //  Embassy, black, kingside.
+                                    if(gs->blackKingsidePrivilege && isKing(74, gs) && isBlack(74, gs) && isRook(79, gs) && isBlack(79, gs) && isEmpty(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 74;
+                                        buffer[movesCtr].to = 77;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Embassy, black, queenside.
+                                    if(gs->blackQueensidePrivilege && isKing(74, gs) && isBlack(74, gs) && isRook(70, gs) && isBlack(70, gs) && isEmpty(71, gs) && isEmpty(72, gs) && isEmpty(73, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(73, 'w', gs) && !inCheckBy(72, 'w', gs) && !inCheckBy(71, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 74;
+                                        buffer[movesCtr].to = 71;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_GROTESQUE:
+            case _SETUP_LADOREAN:                                   //  Grotesque/Ladorean, black, kingside.
+                                    if(gs->blackKingsidePrivilege && isKing(74, gs) && isBlack(74, gs) && isRook(79, gs) && isBlack(79, gs) && isEmpty(75, gs) && isEmpty(76, gs) && isEmpty(77, gs) && isEmpty(78, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 74;
+                                        buffer[movesCtr].to = 76;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(77, 'w', gs))
+                                          {
+                                            buffer[movesCtr].from = 74;
+                                            buffer[movesCtr].to = 77;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+
+                                            if(!inCheckBy(78, 'w', gs))
+                                              {
+                                                buffer[movesCtr].from = 74;
+                                                buffer[movesCtr].to = 78;
+                                                buffer[movesCtr].promo = _NO_PROMO;
+                                                movesCtr++;
+                                              }
+                                          }
+                                      }
+                                                                    //  Grotesque/Ladorean, black, queenside.
+                                    if(gs->blackQueensidePrivilege && isKing(74, gs) && isBlack(74, gs) && isRook(70, gs) && isBlack(70, gs) && isEmpty(71, gs) && isEmpty(72, gs) && isEmpty(73, gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(73, 'w', gs) && !inCheckBy(72, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 74;
+                                        buffer[movesCtr].to = 72;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(71, 'w', gs))
+                                          {
+                                            buffer[movesCtr].from = 74;
+                                            buffer[movesCtr].to = 71;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+                                          }
+                                      }
+                                    break;
+            case _SETUP_PAULOWICH:                                  //  Paulowich, black, kingside (technically queenside).
+                                    if(gs->blackKingsidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(78, gs) && isBlack(78, gs) && isEmpty(76, gs) && isEmpty(77, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 77;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                                                    //  Paulowich, black, queenside (technically chancellorside).
+                                    if(gs->blackQueensidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(71, gs) && isBlack(71, gs) && isEmpty(72, gs) && isEmpty(73, gs) && isEmpty(74, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(73, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 73;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+                                      }
+                                    break;
+            case _SETUP_UNIVERS:                                    //  Univers, black, kingside.
+                                    if(gs->blackKingsidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(79, gs) && isBlack(79, gs) && isEmpty(76, gs) && isEmpty(77, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(76, 'w', gs) && !inCheckBy(77, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 77;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(78, 'w', gs))
+                                          {
+                                            buffer[movesCtr].from = 75;
+                                            buffer[movesCtr].to = 78;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+                                          }
+                                      }
+                                                                    //  Univers, black, queenside.
+                                    if(gs->blackQueensidePrivilege && isKing(75, gs) && isBlack(75, gs) && isRook(70, gs) && isBlack(70, gs) && isEmpty(71, gs) && isEmpty(72, gs) && isEmpty(73, gs) && isEmpty(74, gs) && !inCheckBy(75, 'w', gs) && !inCheckBy(74, 'w', gs) && !inCheckBy(73, 'w', gs))
+                                      {
+                                        buffer[movesCtr].from = 75;
+                                        buffer[movesCtr].to = 73;
+                                        buffer[movesCtr].promo = _NO_PROMO;
+                                        movesCtr++;
+
+                                        if(!inCheckBy(72, 'w', gs))
+                                          {
+                                            buffer[movesCtr].from = 75;
+                                            buffer[movesCtr].to = 72;
+                                            buffer[movesCtr].promo = _NO_PROMO;
+                                            movesCtr++;
+
+                                            if(!inCheckBy(71, 'w', gs))
+                                              {
+                                                buffer[movesCtr].from = 75;
+                                                buffer[movesCtr].to = 71;
+                                                buffer[movesCtr].promo = _NO_PROMO;
+                                                movesCtr++;
+                                              }
+                                          }
+                                      }
+                                    break;
           }
       }
 
@@ -2466,7 +2658,7 @@ bool isCastle(Move* move, GameState* gs)
    In Ladorean Chess:
      Kingside castling is (white) K: 4 to {6, 7, 8}, R: 9 to (king-index - 1).
 
-   In Paulovich Chess:
+   In Paulowich Chess:
      Kingside (technically queenside) castling is (white) K: 5 to 7, R: 8 to 6.
 
    In Univers Chess:
@@ -2486,7 +2678,7 @@ bool isWhiteKingside(Move* move, GameState* gs)
             (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 6) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 7) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 8) ||
-            (gs->setup == _SETUP_PAULOVICH  && move->from == 5 && move->to == 7) ||
+            (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 7) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 7) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 8) );
   }
@@ -2511,7 +2703,7 @@ bool isWhiteKingside(Move* move, GameState* gs)
    In Ladorean Chess:
      Queenside castling is (white) K: 4  to {1, 2}, R: 0 to (king-index + 1).
 
-   In Paulovich Chess:
+   In Paulowich Chess:
      Queenside (technically chancellorside) castling is (white) K: 5 to 3, R: 1 to 4.
 
    In Univers Chess:
@@ -2529,7 +2721,7 @@ bool isWhiteQueenside(Move* move, GameState* gs)
             (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 2) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 1) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 2) ||
-            (gs->setup == _SETUP_PAULOVICH  && move->from == 5 && move->to == 3) ||
+            (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 3) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 1) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 2) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 3) );
@@ -2555,7 +2747,7 @@ bool isWhiteQueenside(Move* move, GameState* gs)
    In Ladorean Chess:
      Kingside castling is (black) K: 74 to {76, 77, 78}, R: 79 to (king-index - 1).
 
-   In Paulovich Chess:
+   In Paulowich Chess:
      Kingside (technically queenside) castling is (black) K: 75 to 77, R: 78 to 76.
 
    In Univers Chess:
@@ -2575,7 +2767,7 @@ bool isBlackKingside(Move* move, GameState* gs)
             (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 76) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 77) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 78) ||
-            (gs->setup == _SETUP_PAULOVICH  && move->from == 75 && move->to == 77) ||
+            (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 77) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 77) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 78) );
   }
@@ -2600,7 +2792,7 @@ bool isBlackKingside(Move* move, GameState* gs)
    In Ladorean Chess:
      Queenside castling is (black) K: 74 to {71, 72}, R: 70 to (king-index + 1).
 
-   In Paulovich Chess:
+   In Paulowich Chess:
      Queenside (technically chancellorside) castling is (black) K: 75 to 73, R: 71 to 74.
 
    In Univers Chess:
@@ -2618,7 +2810,7 @@ bool isBlackQueenside(Move* move, GameState* gs)
             (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 72) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 71) ||
             (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 72) ||
-            (gs->setup == _SETUP_PAULOVICH  && move->from == 75 && move->to == 73) ||
+            (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 73) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 71) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 72) ||
             (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 73) );

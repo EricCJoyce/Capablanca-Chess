@@ -104,18 +104,10 @@ void serialize(GameState* gs)
     currentState[i++] = ch;                                         //  Write byte.
 
     //////////////////////////////////////////////////////////////////  (1 byte) Encode previous pawn double move data.
-    ch = 0;
-    ch |= (gs->previousDoublePawnMove & 128);                       //  Set bit: previous pawn double-move occurred on column A.
-    ch |= (gs->previousDoublePawnMove & 64);                        //  Set bit: previous pawn double-move occurred on column B.
-    ch |= (gs->previousDoublePawnMove & 32);                        //  Set bit: previous pawn double-move occurred on column C.
-    ch |= (gs->previousDoublePawnMove & 16);                        //  Set bit: previous pawn double-move occurred on column D.
-    ch |= (gs->previousDoublePawnMove & 8);                         //  Set bit: previous pawn double-move occurred on column E.
-    ch |= (gs->previousDoublePawnMove & 4);                         //  Set bit: previous pawn double-move occurred on column F.
-    ch |= (gs->previousDoublePawnMove & 2);                         //  Set bit: previous pawn double-move occurred on column G.
-    ch |= (gs->previousDoublePawnMove & 1);                         //  Set bit: previous pawn double-move occurred on column H.
+    ch = gs->previousDoublePawnMove;
     currentState[i++] = ch;                                         //  Write byte.
 
-    //////////////////////////////////////////////////////////////////  (64 bytes) Encode the board.
+    //////////////////////////////////////////////////////////////////  (80 bytes) Encode the board.
     for(j = 0; j < _NONE; j++)
       {
         ch = 0;
@@ -161,10 +153,13 @@ void serialize(GameState* gs)
         currentState[i++] = ch;                                     //  Write byte.
       }
 
+    //////////////////////////////////////////////////////////////////  (1 byte) Encode the setup.
+    currentState[i++] = gs->setup;
+
     //////////////////////////////////////////////////////////////////  (1 byte) Encode the move counter.
     currentState[i++] = gs->moveCtr;
 
-    return;                                                         //  TOTAL: 67 bytes.
+    return;                                                         //  TOTAL: 84 bytes.
   }
 
 /* Recover a GameState from the unsigned-char buffer "currentState". */
@@ -188,27 +183,12 @@ void deserialize(GameState* gs)
     gs->blackCastled = ((currentState[0] & 2) == 2);
 
     //////////////////////////////////////////////////////////////////  (1 byte) Decode en-passant data.
-    gs->previousDoublePawnMove |= (currentState[1] & 128);
-    gs->previousDoublePawnMove |= (currentState[1] & 64);
-    gs->previousDoublePawnMove |= (currentState[1] & 32);
-    gs->previousDoublePawnMove |= (currentState[1] & 16);
-    gs->previousDoublePawnMove |= (currentState[1] & 8);
-    gs->previousDoublePawnMove |= (currentState[1] & 4);
-    gs->previousDoublePawnMove |= (currentState[1] & 2);
-    gs->previousDoublePawnMove |= (currentState[1] & 1);
+    gs->previousDoublePawnMove = currentState[1];
 
-    if(!(gs->previousDoublePawnMove == 128 ||
-         gs->previousDoublePawnMove == 64  ||
-         gs->previousDoublePawnMove == 32  ||
-         gs->previousDoublePawnMove == 16  ||
-         gs->previousDoublePawnMove == 8   ||
-         gs->previousDoublePawnMove == 4   ||
-         gs->previousDoublePawnMove == 2   ||
-         gs->previousDoublePawnMove == 1   ||
-         gs->previousDoublePawnMove == 0   ))
+    if(gs->previousDoublePawnMove > 10)
       gs->previousDoublePawnMove = 0;                               //  "There can be only one!"
 
-    //////////////////////////////////////////////////////////////////  (64 bytes) Decode the board.
+    //////////////////////////////////////////////////////////////////  (80 bytes) Decode the board.
     i = 2;
     for(j = 0; j < _NONE; j++)
       {
@@ -248,10 +228,13 @@ void deserialize(GameState* gs)
         i++;
       }
 
+    //////////////////////////////////////////////////////////////////  (1 byte) Decode the setup.
+    gs->setup = currentState[i++];
+
     //////////////////////////////////////////////////////////////////  (1 byte) Decode the move counter.
     gs->moveCtr = currentState[i++];
 
-    return;                                                         //  TOTAL: 67 bytes.
+    return;                                                         //  TOTAL: 84 bytes.
   }
 
 /* Answer the client-side question, Whose turn is it? */

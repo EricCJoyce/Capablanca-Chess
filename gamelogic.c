@@ -2,7 +2,7 @@
 
 Game logic module for the human player.
 
-sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getCurrentState','_getMovesBuffer','_sideToMove_client','_setup_client','_isWhite_client','_isBlack_client','_isEmpty_client','_isPawn_client','_isKnight_client','_isBishop_client','_isRook_client','_isArchbishop_client','_isChancellor_client','_isQueen_client','_isKing_client','_whiteKingsidePrivilege_client','_whiteQueensidePrivilege_client','_whiteCastled_client','_blackKingsidePrivilege_client','_blackQueensidePrivilege_client','_blackCastled_client','_isCastle_client','_getMovesIndex_client','_makeMove_client','_isTerminal_client','_isWin_client','_draw']" -Wl,--no-entry "gamelogic.c" -o "gamelogic.wasm"
+sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getCurrentState','_getMovesBuffer','_sideToMove_client','_setup_client','_isWhite_client','_isBlack_client','_isEmpty_client','_isPawn_client','_isKnight_client','_isBishop_client','_isRook_client','_isArchbishop_client','_isChancellor_client','_isQueen_client','_isKing_client','_whiteKingsidePrivilege_client','_whiteQueensidePrivilege_client','_whiteCastled_client','_blackKingsidePrivilege_client','_blackQueensidePrivilege_client','_blackCastled_client','_isCastle_client','_getRookSrcCastle_client','_getRookDstCastle_client','_getMovesIndex_client','_makeMove_client','_isTerminal_client','_isWin_client','_draw']" -Wl,--no-entry "gamelogic.c" -o "gamelogic.wasm"
 
 */
 
@@ -48,6 +48,8 @@ bool blackQueensidePrivilege_client(void);
 bool blackCastled_client(void);
 
 bool isCastle_client(unsigned char, unsigned char, unsigned char);
+unsigned char getRookSrcCastle_client(unsigned char, unsigned char);
+unsigned char getRookDstCastle_client(unsigned char, unsigned char);
 
 unsigned int getMovesIndex_client(unsigned char);
 void makeMove_client(unsigned char, unsigned char, unsigned char);
@@ -380,6 +382,202 @@ bool isCastle_client(unsigned char from, unsigned char to, unsigned char promo)
     move.to = to;
     move.promo = promo;
     return isCastle(&move, &gs);
+  }
+
+/* Hacky. But we're accommodating so many variants, and they all have different castling rules, so... */
+unsigned char getRookSrcCastle_client(unsigned char from, unsigned char to)
+  {
+    GameState gs;
+    Move move;
+    deserialize(&gs);                                               //  Recover GameState from buffer.
+    move.from = from;
+    move.to = to;
+    move.promo = _NO_PROMO;
+    unsigned char src = _NONE;
+
+    if(isCastle(&move, &gs))
+      {
+        switch(gs.setup)                                            //  Lot of redundancies here, yeah? But the structure drops nicely into the dst-funcion.
+          {
+            case _SETUP_CAPABLANCA:
+            case _SETUP_BIRD:       if(from == 5 && to == 8)        //  If the king comes from 5, goes to 8
+                                      src = 9;                      //  then the rook comes from 9.
+                                    else if(from == 5 && to == 2)   //  If the king comes from 5, goes to 2
+                                      src = 0;                      //  then the rook comes from 0.
+                                    else if(from == 75 && to == 78) //  If the king comes from 75, goes to 78
+                                      src = 79;                     //  then the rook comes from 79.
+                                    else if(from == 75 && to == 72) //  If the king comes from 75, goes to 72
+                                      src = 70;                     //  then the rook comes from 70.
+                                    break;
+            case _SETUP_EMBASSY:    if(from == 4 && to == 7)        //  If the king comes from 4, goes to 7
+                                      src = 9;                      //  then the rook comes from 9.
+                                    else if(from == 4 && to == 1)   //  If the king comes from 4, goes to 1
+                                      src = 0;                      //  then the rook comes from 0.
+                                    else if(from == 74 && to == 77) //  If the king comes from 74, goes to 77
+                                      src = 79;                     //  then the rook comes from 79.
+                                    else if(from == 74 && to == 71) //  If the king comes from 74, goes to 71
+                                      src = 70;                     //  then the rook comes from 70.
+                                    break;
+            case _SETUP_GROTESQUE:
+            case _SETUP_LADOREAN:   if(from == 4 && to == 6)        //  If the king comes from 4, goes to 6
+                                      src = 9;                      //  then the rook comes from 9.
+                                    else if(from == 4 && to == 7)   //  If the king comes from 4, goes to 7
+                                      src = 9;                      //  then the rook comes from 9.
+                                    else if(from == 4 && to == 8)   //  If the king comes from 4, goes to 8
+                                      src = 9;                      //  then the rook comes from 9.
+
+                                    else if(from == 4 && to == 2)   //  If the king comes from 4, goes to 2
+                                      src = 0;                      //  then the rook comes from 0.
+                                    else if(from == 4 && to == 1)   //  If the king comes from 4, goes to 1
+                                      src = 0;                      //  then the rook comes from 0.
+
+                                    else if(from == 74 && to == 76) //  If the king comes from 74, goes to 76
+                                      src = 79;                     //  then the rook comes from 79.
+                                    else if(from == 74 && to == 77) //  If the king comes from 74, goes to 77
+                                      src = 79;                     //  then the rook comes from 79.
+                                    else if(from == 74 && to == 78) //  If the king comes from 74, goes to 78
+                                      src = 79;                     //  then the rook comes from 79.
+
+                                    else if(from == 74 && to == 72) //  If the king comes from 74, goes to 72
+                                      src = 70;                     //  then the rook comes from 70.
+                                    else if(from == 74 && to == 71) //  If the king comes from 74, goes to 71
+                                      src = 70;                     //  then the rook comes from 70.
+                                    break;
+            case _SETUP_PAULOWICH:  if(from == 5 && to == 7)        //  If the king comes from 5, goes to 7
+                                      src = 8;                      //  then the rook comes from 8.
+                                    else if(from == 5 && to == 3)   //  If the king comes from 5, goes to 3
+                                      src = 1;                      //  then the rook comes from 1.
+                                    else if(from == 75 && to == 77) //  If the king comes from 75, goes to 77
+                                      src = 78;                     //  then the rook comes from 78.
+                                    else if(from == 75 && to == 73) //  If the king comes from 75, goes to 73
+                                      src = 71;                     //  then the rook comes from 71.
+                                    break;
+            case _SETUP_UNIVERS:    if(from == 5 && to == 7)        //  If the king comes from 5, goes to 7
+                                      src = 9;                      //  then the rook comes from 9.
+                                    else if(from == 5 && to == 8)   //  If the king comes from 5, goes to 8
+                                      src = 9;                      //  then the rook comes from 9.
+
+                                    else if(from == 5 && to == 3)   //  If the king comes from 5, goes to 3
+                                      src = 0;                      //  then the rook comes from 0.
+                                    else if(from == 5 && to == 2)   //  If the king comes from 5, goes to 2
+                                      src = 0;                      //  then the rook comes from 0.
+                                    else if(from == 5 && to == 1)   //  If the king comes from 5, goes to 1
+                                      src = 0;                      //  then the rook comes from 0.
+
+                                    else if(from == 75 && to == 77) //  If the king comes from 75, goes to 77
+                                      src = 79;                     //  then the rook comes from 79.
+                                    else if(from == 75 && to == 78) //  If the king comes from 75, goes to 78
+                                      src = 79;                     //  then the rook comes from 79.
+
+                                    else if(from == 75 && to == 73) //  If the king comes from 75, goes to 73
+                                      src = 70;                     //  then the rook comes from 70.
+                                    else if(from == 75 && to == 72) //  If the king comes from 75, goes to 72
+                                      src = 70;                     //  then the rook comes from 70.
+                                    else if(from == 75 && to == 71) //  If the king comes from 75, goes to 71
+                                      src = 70;                     //  then the rook comes from 70.
+                                    break;
+          }
+      }
+
+    return src;
+  }
+
+/* Hacky. But we're accommodating so many variants, and they all have different castling rules, so... */
+unsigned char getRookDstCastle_client(unsigned char from, unsigned char to)
+  {
+    GameState gs;
+    Move move;
+    deserialize(&gs);                                               //  Recover GameState from buffer.
+    move.from = from;
+    move.to = to;
+    move.promo = _NO_PROMO;
+    unsigned char dst = _NONE;
+
+    if(isCastle(&move, &gs))
+      {
+        switch(gs.setup)
+          {
+            case _SETUP_CAPABLANCA:
+            case _SETUP_BIRD:       if(from == 5 && to == 8)        //  If the king comes from 5, goes to 8
+                                      dst = 7;                      //  then the rook goes to 7.
+                                    else if(from == 5 && to == 2)   //  If the king comes from 5, goes to 2
+                                      dst = 3;                      //  then the rook goes to 3.
+                                    else if(from == 75 && to == 78) //  If the king comes from 75, goes to 78
+                                      dst = 77;                     //  then the rook goes to 77.
+                                    else if(from == 75 && to == 72) //  If the king comes from 75, goes to 72
+                                      dst = 73;                     //  then the rook goes to 73.
+                                    break;
+            case _SETUP_EMBASSY:    if(from == 4 && to == 7)        //  If the king comes from 4, goes to 7
+                                      dst = 6;                      //  then the rook goes to 6.
+                                    else if(from == 4 && to == 1)   //  If the king comes from 4, goes to 1
+                                      dst = 2;                      //  then the rook goes to 2.
+                                    else if(from == 74 && to == 77) //  If the king comes from 74, goes to 77
+                                      dst = 76;                     //  then the rook goes to 76.
+                                    else if(from == 74 && to == 71) //  If the king comes from 74, goes to 71
+                                      dst = 72;                     //  then the rook goes to 72.
+                                    break;
+            case _SETUP_GROTESQUE:
+            case _SETUP_LADOREAN:   if(from == 4 && to == 6)        //  If the king comes from 4, goes to 6
+                                      dst = 5;                      //  then the rook goes to 5.
+                                    else if(from == 4 && to == 7)   //  If the king comes from 4, goes to 7
+                                      dst = 6;                      //  then the rook goes to 6.
+                                    else if(from == 4 && to == 8)   //  If the king comes from 4, goes to 8
+                                      dst = 7;                      //  then the rook goes to 7.
+
+                                    else if(from == 4 && to == 2)   //  If the king comes from 4, goes to 2
+                                      dst = 3;                      //  then the rook goes to 3.
+                                    else if(from == 4 && to == 1)   //  If the king comes from 4, goes to 1
+                                      dst = 2;                      //  then the rook goes to 2.
+
+                                    else if(from == 74 && to == 76) //  If the king comes from 74, goes to 76
+                                      dst = 75;                     //  then the rook goes to 75.
+                                    else if(from == 74 && to == 77) //  If the king comes from 74, goes to 77
+                                      dst = 76;                     //  then the rook goes to 76.
+                                    else if(from == 74 && to == 78) //  If the king comes from 74, goes to 78
+                                      dst = 77;                     //  then the rook goes to 77.
+
+                                    else if(from == 74 && to == 72) //  If the king comes from 74, goes to 72
+                                      dst = 73;                     //  then the rook goes to 73.
+                                    else if(from == 74 && to == 71) //  If the king comes from 74, goes to 71
+                                      dst = 72;                     //  then the rook goes to 72.
+                                    break;
+            case _SETUP_PAULOWICH:  if(from == 5 && to == 7)        //  If the king comes from 5, goes to 7
+                                      dst = 6;                      //  then the rook goes to 6.
+                                    else if(from == 5 && to == 3)   //  If the king comes from 5, goes to 3
+                                      dst = 4;                      //  then the rook goes to 4.
+                                    else if(from == 75 && to == 77) //  If the king comes from 75, goes to 77
+                                      dst = 76;                     //  then the rook goes to 76.
+                                    else if(from == 75 && to == 73) //  If the king comes from 75, goes to 73
+                                      dst = 74;                     //  then the rook goes to 74.
+                                    break;
+            case _SETUP_UNIVERS:    if(from == 5 && to == 7)        //  If the king comes from 5, goes to 7
+                                      dst = 6;                      //  then the rook goes to 6.
+                                    else if(from == 5 && to == 8)   //  If the king comes from 5, goes to 8
+                                      dst = 7;                      //  then the rook goes to 7.
+
+                                    else if(from == 5 && to == 3)   //  If the king comes from 5, goes to 3
+                                      dst = 4;                      //  then the rook goes to 4.
+                                    else if(from == 5 && to == 2)   //  If the king comes from 5, goes to 2
+                                      dst = 3;                      //  then the rook goes to 3.
+                                    else if(from == 5 && to == 1)   //  If the king comes from 5, goes to 1
+                                      dst = 2;                      //  then the rook goes to 2.
+
+                                    else if(from == 75 && to == 77) //  If the king comes from 75, goes to 77
+                                      dst = 76;                     //  then the rook goes to 76.
+                                    else if(from == 75 && to == 78) //  If the king comes from 75, goes to 78
+                                      dst = 77;                     //  then the rook goes to 77.
+
+                                    else if(from == 75 && to == 73) //  If the king comes from 75, goes to 73
+                                      dst = 74;                     //  then the rook goes to 74.
+                                    else if(from == 75 && to == 72) //  If the king comes from 75, goes to 72
+                                      dst = 73;                     //  then the rook goes to 73.
+                                    else if(from == 75 && to == 71) //  If the king comes from 75, goes to 71
+                                      dst = 72;                     //  then the rook goes to 72.
+                                    break;
+          }
+      }
+
+    return dst;
   }
 
 bool isTerminal_client(void)

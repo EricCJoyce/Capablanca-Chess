@@ -189,6 +189,7 @@ float pieceeval(unsigned char*, unsigned char, Move*, unsigned int, Move*, unsig
                 unsigned char*, unsigned char, Move*, unsigned int, Move*, unsigned int, GameState*);
 float pawnEval(unsigned char*, unsigned char, Move*, unsigned int, Move*, unsigned int, GameState*);
 float pawnBlockade(unsigned char, GameState*);
+float pawnBlocked_EF(unsigned char, Move*, unsigned int, GameState*);
 float pawnBlocked(unsigned char, Move*, unsigned int, GameState*);
 float knightEval(unsigned char, unsigned char*, unsigned char, Move*, unsigned int, Move*, unsigned int, Move*, unsigned int, Move*, unsigned int, Move*, unsigned int, GameState*);
 float knightDecreasePawnVal(GameState*);
@@ -204,8 +205,6 @@ float badBishop(unsigned char, Move*, unsigned int, GameState*);
 float bishopColorWeakness(unsigned char*, unsigned char, GameState*);
 unsigned char darkSquares(unsigned char*);
 unsigned char lightSquares(unsigned char*);
-float Fianchetto(unsigned char, unsigned char*, unsigned char, GameState*);
-float bishopReturn(unsigned char, GameState*);
 float bishopTrapped(unsigned char, Move*, unsigned int);
 float bishopKnightDefense(unsigned char, unsigned char*, unsigned char, Move*, unsigned int, GameState*);
 float bishopUndefended(unsigned char, Move*, unsigned int);
@@ -3950,8 +3949,6 @@ float bishopEval(unsigned char index,
     h += bishopPair(index, posTeam, posLen, gs);
     h += badBishop(index, posScope, posScopeLen, gs);
     h += bishopColorWeakness(posTeam, posLen, gs);
-    h += Fianchetto(index, negTeam, negLen, gs);
-    h += bishopReturn(index, gs);
     h += bishopTrapped(index, negPawnAttacks, negPawnAttacksLen);
     h += bishopKnightDefense(index,
                              posTeam, posLen,

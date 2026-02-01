@@ -19,7 +19,7 @@ sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,sourc
 #define _WHITE_TO_MOVE                           0                  /* Copied from gamestate.h. */
 #define _BLACK_TO_MOVE                           1                  /* Copied from gamestate.h. */
 
-#define _MAX_PLY                                20                  /* Deepest possible depth. */
+#define _MAX_PLY                                15                  /* Deepest possible depth. */
 #define _QUIESCENCE_MAX_PLY                      4                  /* Maximum extension for quiescence search. */
 
 #define _PARAMETER_ARRAY_SIZE                   16                  /* Number of bytes needed to store search parameters. */
@@ -612,20 +612,13 @@ unsigned int getMovesArenaSize(void)
 void initSearch(bool initializeForWhite)
   {
     NegamaxNode root;
-    bool whiteToMove;
     unsigned char depth;
     unsigned int i;
                                                                     //  Set status to RUNNING.
     inputParametersBuffer[PARAM_BUFFER_STATUS_OFFSET] = STATUS_RUNNING;
 
     for(i = 0; i < _GAMESTATE_BYTE_SIZE; i++)                       //  Copy root gamestate byte array from global "inputGameStateBuffer"
-      {                                                             //  to negamax root node.
-        root.gs[i] = inputGameStateBuffer[i];
-                                                                    //  Copy "root"s "gs" to "queryGameStateBuffer"
-        queryGameStateBuffer[i] = root.gs[i];                       //  for isTerminal() and evaluate().
-      }
-    copyQuery2EvalGSInput();                                        //  Copy "queryGameStateBuffer" to Evaluation Module's "inputBuffer".
-    whiteToMove = (sideToMove() == _WHITE_TO_MOVE);                 //  (Ask the Evaluation Module) Is white to move in this state?
+      root.gs[i] = inputGameStateBuffer[i];                         //  to negamax root node.
 
     root.parent = 0;                                                //  Set root's parent index to...
 

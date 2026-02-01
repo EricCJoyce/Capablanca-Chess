@@ -700,7 +700,7 @@ function selection(intersects)
                 if(gameEngine.instance.exports.isBlack_client(Select_B))
                   animationInstruction = {a:Select_A, b:Select_B, action:'die'};
                                                                     //  White is King's-side castling: set up a castle.
-                else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
+                else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteKingsidePrivilege_client())
                   animationInstruction = {a:Select_A,
                                           b:Select_B,
@@ -708,7 +708,7 @@ function selection(intersects)
                                           d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
                                           action:'castle'};
                                                                     //  White is Queen's-side castling: set up a castle.
-                else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
+                else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteQueensidePrivilege_client())
                   animationInstruction = {a:Select_A,
                                           b:Select_B,
@@ -756,7 +756,7 @@ function selection(intersects)
                 if(gameEngine.instance.exports.isWhite_client(Select_B))
                   animationInstruction = {a:Select_A, b:Select_B, action:'die'};
                                                                     //  Black is King's-side castling: set up a castle.
-                else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
+                else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackKingsidePrivilege_client())
                   animationInstruction = {a:Select_A,
                                           b:Select_B,
@@ -764,7 +764,7 @@ function selection(intersects)
                                           d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
                                           action:'castle'};
                                                                     //  Black is Queen's-side castling: set up a castle.
-                else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
+                else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackQueensidePrivilege_client())
                   animationInstruction = {a:Select_A,
                                           b:Select_B,

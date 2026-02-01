@@ -243,7 +243,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -263,7 +263,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -283,7 +283,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -303,7 +303,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -323,7 +323,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -343,7 +343,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -363,7 +363,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -383,7 +383,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -403,7 +403,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;
@@ -423,7 +423,7 @@ function loadWebASM()
                            case _WHITE_KNIGHT:     consoleStr += 'N ';  break;
                            case _WHITE_BISHOP:     consoleStr += 'B ';  break;
                            case _WHITE_ROOK:       consoleStr += 'R ';  break;
-                           case _WHITE_ARCHBISHIP: consoleStr += 'A ';  break;
+                           case _WHITE_ARCHBISHOP: consoleStr += 'A ';  break;
                            case _WHITE_CHANCELLOR: consoleStr += 'C ';  break;
                            case _WHITE_QUEEN:      consoleStr += 'Q ';  break;
                            case _WHITE_KING:       consoleStr += 'K ';  break;

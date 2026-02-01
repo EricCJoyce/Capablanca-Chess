@@ -766,6 +766,9 @@ function pullGUIComponents()
   {
     gameStarted = true;                                             //  The game has officially begun.
                                                                     //  Commit to the choices made for play and pull their controls from the control panel.
+    document.getElementById('setup-hdr-tr').style.display = 'none';
+    document.getElementById('starting-position-tr').style.display = 'none';
+
     document.getElementById('switch-sides-tr').style.display = 'none';
     document.getElementById('AIblack').removeAttribute('onclick');
 
@@ -836,6 +839,7 @@ function updateGUIlabels()
         case 'Polish':  document.getElementById('project-title').innerHTML = 'Szachy Capablanki';
                         document.getElementById("node-counter-label").innerHTML = 'W&#281;z&#322;y rozwi&#261;zywane:';
 
+                        document.getElementById('setup-label').innerHTML = 'Ustawienie';
                         document.getElementById('view-label').innerHTML = 'Widzenie';
                         document.getElementById('angle-label').innerHTML = 'K&#261;t';
                         document.getElementById('fullscreen-label').innerHTML = 'Ca&#322;y ekran';
@@ -852,6 +856,7 @@ function updateGUIlabels()
         case 'Spanish': document.getElementById('project-title').innerHTML = 'Ajedrez de Capablanca';
                         document.getElementById("node-counter-label").innerHTML = 'Nodos evaluados:';
 
+                        document.getElementById('setup-label').innerHTML = 'Disposici&#243;n';
                         document.getElementById('view-label').innerHTML = 'Visto';
                         document.getElementById('angle-label').innerHTML = '&#193;ngulo';
                         document.getElementById('fullscreen-label').innerHTML = 'Pantalla completa';
@@ -868,6 +873,7 @@ function updateGUIlabels()
         case 'German':  document.getElementById('project-title').innerHTML = 'Capablancas Schach';
                         document.getElementById("node-counter-label").innerHTML = 'Knoten untersucht:';
 
+                        document.getElementById('setup-label').innerHTML = 'Einstellung';
                         document.getElementById('view-label').innerHTML = 'Sicht';
                         document.getElementById('angle-label').innerHTML = 'Blickwinkel';
                         document.getElementById('fullscreen-label').innerHTML = 'Vollbildansicht';
@@ -884,6 +890,7 @@ function updateGUIlabels()
         default:        document.getElementById('project-title').innerHTML = 'Capablanca Chess';
                         document.getElementById("node-counter-label").innerHTML = 'Nodes searched:';
 
+                        document.getElementById('setup-label').innerHTML = 'Setup';
                         document.getElementById('view-label').innerHTML = 'View';
                         document.getElementById('angle-label').innerHTML = 'Angle';
                         document.getElementById('fullscreen-label').innerHTML = 'Fullscreen';

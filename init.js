@@ -10,13 +10,13 @@ const _GAMESTATE_BYTE_SIZE = 84;                                    //  Size (se
 const _MOVE_BYTE_SIZE = 3;                                          //  Size (see C code).
 const _MOVEBUFFER_BYTE_SIZE = 64;                                   //  Size (see C code).
 const _MAX_MOVES = 128;                                             //  Size (see C code).
-const _ZHASH_TABLE_SIZE = 751;                                      //  Size (see C code).
+const _ZHASH_TABLE_SIZE = 1257;                                     //  Size (see C code).
 const _HASH_VALUE_BYTE_SIZE = 8;                                    //  Size of long long.
 const _TRANSPO_TABLE_SIZE = 524288;                                 //  Size (see C code).
 const _TRANSPO_RECORD_BYTE_SIZE = 18;                               //  Size (see C code).
 const _PARAMETER_ARRAY_SIZE = 16;                                   //  Size (see C++ code).
 const _TREE_SEARCH_ARRAY_SIZE = 65536;                              //  Size (see C++ code).
-const _NEGAMAX_NODE_BYTE_SIZE = 121;                                //  Size (see C++ code).
+const _NEGAMAX_NODE_BYTE_SIZE = 138;                                //  Size (see C++ code).
 const _NEGAMAX_MOVE_BYTE_SIZE = 4;                                  //  Size (see C++ code).
 const _KILLER_MOVE_PER_PLY = 2;                                     //  Size (see C++ code).
 const _KILLER_MOVE_MAX_DEPTH = 64;                                  //  Size (see C++ code).
@@ -702,11 +702,19 @@ function selection(intersects)
                                                                     //  White is King's-side castling: set up a castle.
                 else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteKingsidePrivilege_client())
-                  animationInstruction = {a:Select_A, b:Select_B, c:_H1, d:_F1, action:'castle'};
+                  animationInstruction = {a:Select_A,
+                                          b:Select_B,
+                                          c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B),
+                                          d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
+                                          action:'castle'};
                                                                     //  White is Queen's-side castling: set up a castle.
                 else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteQueensidePrivilege_client())
-                  animationInstruction = {a:Select_A, b:Select_B, c:_A1, d:_D1, action:'castle'};
+                  animationInstruction = {a:Select_A,
+                                          b:Select_B,
+                                          c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B),
+                                          d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
+                                          action:'castle'};
                                                                     //  White is capturing en passant: set up en-passant capture.
                 else if(isEnPassantCapture(Select_A, Select_B))
                   animationInstruction = {a:Select_A, b:Select_B, action:'dieEnPassant'};
@@ -750,11 +758,19 @@ function selection(intersects)
                                                                     //  Black is King's-side castling: set up a castle.
                 else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackKingsidePrivilege_client())
-                  animationInstruction = {a:Select_A, b:Select_B, c:_H8, d:_F8, action:'castle'};
+                  animationInstruction = {a:Select_A,
+                                          b:Select_B,
+                                          c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B),
+                                          d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
+                                          action:'castle'};
                                                                     //  Black is Queen's-side castling: set up a castle.
                 else if(gameEngine.instance.export.isCastle_client(Select_A, Select_B, _NO_PROMO) &&
                         !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackQueensidePrivilege_client())
-                  animationInstruction = {a:Select_A, b:Select_B, c:_A8, d:_D8, action:'castle'};
+                  animationInstruction = {a:Select_A,
+                                          b:Select_B,
+                                          c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B),
+                                          d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B),
+                                          action:'castle'};
                                                                     //  Black is capturing en passant: set up en-passant capture.
                 else if(isEnPassantCapture(Select_A, Select_B))
                   animationInstruction = {a:Select_A, b:Select_B, action:'dieEnPassant'};

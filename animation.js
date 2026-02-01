@@ -99,13 +99,13 @@ function move(a, b)
               {
                                                                     //  Test whether the DESTINATION is black's home row AND
                                                                     //  whether the SOURCE is a white pawn (because we have not yet updated the game state.)
-                if(Select_B >= 56 && gameEngine.instance.exports.isWhite_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
+                if(Select_B >= 70 && gameEngine.instance.exports.isWhite_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
                   addHUD();                                         //  Human, as White, to promote.
                                                                     //  THERFORE **DO NOT** UPDATE THE GAME-ENGINE YET!!!
 
                                                                     //  Test whether the DESTINATION is white's home row AND
                                                                     //  whether the SOURCE is a black pawn (because we have not yet updated the game state.)
-                else if(Select_B <= 7 && gameEngine.instance.exports.isBlack_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
+                else if(Select_B <= 9 && gameEngine.instance.exports.isBlack_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
                   promoteAI(Select_A, Select_B, PromotionTarget);   //  A.I., as Black, to promote.
                                                                     //  The A.I. promotion routine updates the game state at the end of promotion.
                 else
@@ -119,13 +119,13 @@ function move(a, b)
               {
                                                                     //  Test whether the DESTINATION is black's home row AND
                                                                     //  whether the SOURCE is a white pawn (because we have not yet updated the game state.)
-                if(Select_B >= 56 && gameEngine.instance.exports.isWhite_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
+                if(Select_B >= 70 && gameEngine.instance.exports.isWhite_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
                   promoteAI(Select_A, Select_B, PromotionTarget);   //  A.I., as White, to promote.
                                                                     //  The A.I. promotion routine updates the game state at the end of promotion.
 
                                                                     //  Test whether the DESTINATION is white's home row AND
                                                                     //  whether the SOURCE is a black pawn (because we have not yet updated the game state.)
-                else if(Select_B <= 7 && gameEngine.instance.exports.isBlack_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
+                else if(Select_B <= 9 && gameEngine.instance.exports.isBlack_client(Select_A) && gameEngine.instance.exports.isPawn_client(Select_A))
                   addHUD();                                         //  Human, as Black, to promote.
                                                                     //  THERFORE **DO NOT** UPDATE THE GAME-ENGINE YET!!!
                 else
@@ -384,45 +384,66 @@ function completePromotionHuman(a, b, p)
       {
         switch(p)
           {
-            case _PROMO_KNIGHT: gamePieces.push(new THREE.Mesh(knightGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Knight';
-                                break;
-            case _PROMO_BISHOP: gamePieces.push(new THREE.Mesh(bishopGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
-                                break;
-            case _PROMO_ROOK:   gamePieces.push(new THREE.Mesh(rookGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Rook';
-                                break;
-            case _PROMO_QUEEN:  gamePieces.push(new THREE.Mesh(queenGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Queen';
-                                break;
+            case _PROMO_KNIGHT:     gamePieces.push(new THREE.Mesh(knightGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Knight';
+                                    gamePieces[gamePieces.length - 1].rotation.y = 90 * (Math.PI/180);
+                                    break;
+            case _PROMO_BISHOP:     gamePieces.push(new THREE.Mesh(bishopGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
+                                    break;
+            case _PROMO_ROOK:       gamePieces.push(new THREE.Mesh(rookGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Rook';
+                                    break;
+            case _PROMO_ARCHBISHOP: gamePieces.push(new THREE.Mesh(archbishopGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Archbishop';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_CHANCELLOR: gamePieces.push(new THREE.Mesh(chancellorGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Chancellor';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_QUEEN:      gamePieces.push(new THREE.Mesh(queenGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Queen';
+                                    break;
           }
       }
     else                                                            //  A.I. is white; human is black.
       {
         switch(p)
           {
-            case _PROMO_KNIGHT: gamePieces.push(new THREE.Mesh(knightGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Knight';
-                                gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
-                                break;
-            case _PROMO_BISHOP: gamePieces.push(new THREE.Mesh(bishopGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
-                                break;
-            case _PROMO_ROOK:   gamePieces.push(new THREE.Mesh(rookGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Rook';
-                                break;
-            case _PROMO_QUEEN:  gamePieces.push(new THREE.Mesh(queenGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Queen';
-                                break;
+            case _PROMO_KNIGHT:     gamePieces.push(new THREE.Mesh(knightGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Knight';
+                                    gamePieces[gamePieces.length - 1].rotation.y = 90 * (Math.PI/180);
+                                    break;
+            case _PROMO_BISHOP:     gamePieces.push(new THREE.Mesh(bishopGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
+                                    break;
+            case _PROMO_ROOK:       gamePieces.push(new THREE.Mesh(rookGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Rook';
+                                    break;
+            case _PROMO_ARCHBISHOP: gamePieces.push(new THREE.Mesh(archbishopGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Archbishop';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_CHANCELLOR: gamePieces.push(new THREE.Mesh(chancellorGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Chancellor';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_QUEEN:      gamePieces.push(new THREE.Mesh(queenGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Queen';
+                                    break;
           }
       }
 
@@ -514,45 +535,66 @@ function completePromotionAI(a, b, p)
       {
         switch(p)
           {
-            case _PROMO_KNIGHT: gamePieces.push(new THREE.Mesh(knightGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Knight';
-                                gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
-                                break;
-            case _PROMO_BISHOP: gamePieces.push(new THREE.Mesh(bishopGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
-                                break;
-            case _PROMO_ROOK:   gamePieces.push(new THREE.Mesh(rookGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Rook';
-                                break;
-            case _PROMO_QUEEN:  gamePieces.push(new THREE.Mesh(queenGeometry, blackMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'Black';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Queen';
-                                break;
+            case _PROMO_KNIGHT:     gamePieces.push(new THREE.Mesh(knightGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Knight';
+                                    gamePieces[gamePieces.length - 1].rotation.y = 90 * (Math.PI/180);
+                                    break;
+            case _PROMO_BISHOP:     gamePieces.push(new THREE.Mesh(bishopGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
+                                    break;
+            case _PROMO_ROOK:       gamePieces.push(new THREE.Mesh(rookGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Rook';
+                                    break;
+            case _PROMO_ARCHBISHOP: gamePieces.push(new THREE.Mesh(archbishopGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Archbishop';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_CHANCELLOR: gamePieces.push(new THREE.Mesh(chancellorGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Chancellor';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_QUEEN:      gamePieces.push(new THREE.Mesh(queenGeometry, blackMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'Black';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Queen';
+                                    break;
           }
       }
     else                                                            //  A.I. is white.
       {
         switch(p)
           {
-            case _PROMO_KNIGHT: gamePieces.push(new THREE.Mesh(knightGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Knight';
-                                break;
-            case _PROMO_BISHOP: gamePieces.push(new THREE.Mesh(bishopGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
-                                break;
-            case _PROMO_ROOK:   gamePieces.push(new THREE.Mesh(rookGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Rook';
-                                break;
-            case _PROMO_QUEEN:  gamePieces.push(new THREE.Mesh(queenGeometry, whiteMaterial));
-                                gamePieces[gamePieces.length - 1].chessteam = 'White';
-                                gamePieces[gamePieces.length - 1].chessrank = 'Queen';
-                                break;
+            case _PROMO_KNIGHT:     gamePieces.push(new THREE.Mesh(knightGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Knight';
+                                    gamePieces[gamePieces.length - 1].rotation.y = 90 * (Math.PI/180);
+                                    break;
+            case _PROMO_BISHOP:     gamePieces.push(new THREE.Mesh(bishopGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Bishop';
+                                    break;
+            case _PROMO_ROOK:       gamePieces.push(new THREE.Mesh(rookGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Rook';
+                                    break;
+            case _PROMO_ARCHBISHOP: gamePieces.push(new THREE.Mesh(archbishopGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Archbishop';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_CHANCELLOR: gamePieces.push(new THREE.Mesh(chancellorGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Chancellor';
+                                    gamePieces[gamePieces.length - 1].rotation.y = -90 * (Math.PI/180);
+                                    break;
+            case _PROMO_QUEEN:      gamePieces.push(new THREE.Mesh(queenGeometry, whiteMaterial));
+                                    gamePieces[gamePieces.length - 1].chessteam = 'White';
+                                    gamePieces[gamePieces.length - 1].chessrank = 'Queen';
+                                    break;
           }
       }
 

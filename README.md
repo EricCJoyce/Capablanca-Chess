@@ -50,7 +50,7 @@ To look this position up in the opening book, call:
 
 which produces, for example,
 ```
-SUCCESS,6,21,0
+SUCCESS,15,35,0
 ```
 
 which is the one of four moves on file for this state.

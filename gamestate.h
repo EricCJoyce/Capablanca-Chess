@@ -557,31 +557,7 @@ void makeMove(Move* move, GameState* gs)
             gs->previousDoublePawnMove = 0;                         //  Zero this out... Unless it gets set below.
 
             if(isPawnDoubleMove(move->from, move->to, gs))          //  Save last move IFF last move was a pawn double-move!
-              {
-                switch(col(move->from))
-                  {
-                    case 0: gs->previousDoublePawnMove = 1;         //  Double move occurred in Column A.
-                            break;
-                    case 1: gs->previousDoublePawnMove = 2;         //  Double move occurred in Column B.
-                            break;
-                    case 2: gs->previousDoublePawnMove = 3;         //  Double move occurred in Column C.
-                            break;
-                    case 3: gs->previousDoublePawnMove = 4;         //  Double move occurred in Column D.
-                            break;
-                    case 4: gs->previousDoublePawnMove = 5;         //  Double move occurred in Column E.
-                            break;
-                    case 5: gs->previousDoublePawnMove = 6;         //  Double move occurred in Column F.
-                            break;
-                    case 6: gs->previousDoublePawnMove = 7;         //  Double move occurred in Column G.
-                            break;
-                    case 7: gs->previousDoublePawnMove = 8;         //  Double move occurred in Column H.
-                            break;
-                    case 8: gs->previousDoublePawnMove = 9;         //  Double move occurred in Column I.
-                            break;
-                    case 9: gs->previousDoublePawnMove = 10;        //  Double move occurred in Column J.
-                            break;
-                  }
-              }
+              gs->previousDoublePawnMove = col(move->from) + 1;
 
             if(isPawn(move->from, gs) || !isEmpty(move->to, gs))    //  Pawn move or capture reset the 50-move counter.
               gs->moveCtr = 0;

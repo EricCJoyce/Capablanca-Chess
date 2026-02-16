@@ -1404,140 +1404,140 @@ bool isEnPassantAttack(Move* move, GameState* gs)
           {
             case 1:                                                 //  Pawn double-move previously occurred in column A.
                                                                     //  Move takes a pawn to an empty square in column A.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 0)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 0)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && isBlack(l(move->from), gs) && move->to == ul(move->from))
-                            return true;
+                  if(isWhite(move->from, gs) && isBlack(l(move->from), gs) && move->to == ul(move->from))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && isWhite(l(move->from), gs) && move->to == dl(move->from))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && isWhite(l(move->from), gs) && move->to == dl(move->from))
+                    return true;
+                }
+              break;
             case 2:                                                 //  Pawn double-move previously occurred in column B.
                                                                     //  Move takes a pawn to an empty square in column B.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 1)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 1)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 3:                                                 //  Pawn double-move previously occurred in column C.
                                                                     //  Move takes a pawn to an empty square in column C.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 2)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 2)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 4:                                                 //  Pawn double-move previously occurred in column D.
                                                                     //  Move takes a pawn to an empty square in column D.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 3)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 3)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 5:                                                 //  Pawn double-move previously occurred in column E.
                                                                     //  Move takes a pawn to an empty square in column E.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 4)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 4)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 6:                                                 //  Pawn double-move previously occurred in column F.
                                                                     //  Move takes a pawn to an empty square in column F.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 5)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 5)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 7:                                                 //  Pawn double-move previously occurred in column G.
                                                                     //  Move takes a pawn to an empty square in column G.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 6)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 6)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 8:                                                 //  Pawn double-move previously occurred in column H.
                                                                     //  Move takes a pawn to an empty square in column H.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 7)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 7)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 9:                                                 //  Pawn double-move previously occurred in column I.
                                                                     //  Move takes a pawn to an empty square in column I.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 8)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 8)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
-                                                          (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
-                            return true;
+                  if(isWhite(move->from, gs) && ( (isBlack(l(move->from), gs) && move->to == ul(move->from)) ||
+                                                  (isBlack(r(move->from), gs) && move->to == ur(move->from)) ))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
-                                                          (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && ( (isWhite(l(move->from), gs) && move->to == dl(move->from)) ||
+                                                  (isWhite(r(move->from), gs) && move->to == dr(move->from)) ))
+                    return true;
+                }
+              break;
             case 10:                                                //  Pawn double-move previously occurred in column J.
                                                                     //  Move takes a pawn to an empty square in column J.
-                      if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 9)
-                        {
+              if(isPawn(move->from, gs) && isEmpty(move->to, gs) && col(move->to) != col(move->from) && col(move->to) == 9)
+                {
                                                                     //  White captures black en passant.
-                          if(isWhite(move->from, gs) && isBlack(r(move->from), gs) && move->to == ur(move->from))
-                            return true;
+                  if(isWhite(move->from, gs) && isBlack(r(move->from), gs) && move->to == ur(move->from))
+                    return true;
                                                                     //  Black captures white en passant.
-                          if(isBlack(move->from, gs) && isWhite(r(move->from), gs) && move->to == dr(move->from))
-                            return true;
-                        }
-                      break;
+                  if(isBlack(move->from, gs) && isWhite(r(move->from), gs) && move->to == dr(move->from))
+                    return true;
+                }
+              break;
           }
       }
 

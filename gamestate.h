@@ -1082,307 +1082,307 @@ unsigned int getPawnEnPassantAttacks(unsigned char index, GameState* gs, Move* b
         switch(gs->previousDoublePawnMove)
           {
             case 1:                                                 //  Previous pawn double-move occurred in column A.
-                       if(col(index) == 1)                          //  "index" is in the column next to column A, where the double move occurred.
-                         {
-                           if(isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 1)                                   //  "index" is in the column next to column A, where the double move occurred.
+                {
+                  if(isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 2:                                                 //  Previous pawn double-move occurred in column B.
-                       if(col(index) == 0 || col(index) == 2)       //  "index" is in the column next to column B, where the double move occurred.
-                         {
-                           if(col(index) == 0 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 2 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 0 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 2 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 0 || col(index) == 2)                //  "index" is in the column next to column B, where the double move occurred.
+                {
+                  if(col(index) == 0 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 2 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 0 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 2 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 3:                                                 //  Previous pawn double-move occurred in column C.
-                       if(col(index) == 1 || col(index) == 3)       //  "index" is in the column next to column C, where the double move occurred.
-                         {
-                           if(col(index) == 1 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 3 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 1 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 3 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 1 || col(index) == 3)                //  "index" is in the column next to column C, where the double move occurred.
+                {
+                  if(col(index) == 1 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 3 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 1 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 3 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 4:                                                 //  Previous pawn double-move occurred in column D.
-                       if(col(index) == 2 || col(index) == 4)       //  "index" is in the column next to column D, where the double move occurred.
-                         {
-                           if(col(index) == 2 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 4 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 2 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 4 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 2 || col(index) == 4)                //  "index" is in the column next to column D, where the double move occurred.
+                {
+                  if(col(index) == 2 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 4 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 2 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 4 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 5:                                                 //  Previous pawn double-move occurred in column E.
-                       if(col(index) == 3 || col(index) == 5)       //  "index" is in the column next to column E, where the double move occurred.
-                         {
-                           if(col(index) == 3 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 5 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 3 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 5 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 3 || col(index) == 5)                //  "index" is in the column next to column E, where the double move occurred.
+                {
+                  if(col(index) == 3 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 5 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 3 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 5 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 6:                                                 //  Previous pawn double-move occurred in column F.
-                       if(col(index) == 4 || col(index) == 6)       //  "index" is in the column next to column F, where the double move occurred.
-                         {
-                           if(col(index) == 4 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 6 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 4 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 6 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 4 || col(index) == 6)                //  "index" is in the column next to column F, where the double move occurred.
+                {
+                  if(col(index) == 4 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 6 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 4 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 6 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 7:                                                 //  Previous pawn double-move occurred in column G.
-                       if(col(index) == 5 || col(index) == 7)       //  "index" is in the column next to column G, where the double move occurred.
-                         {
-                           if(col(index) == 5 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 7 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 5 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 7 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 5 || col(index) == 7)                //  "index" is in the column next to column G, where the double move occurred.
+                {
+                  if(col(index) == 5 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 7 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 5 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 7 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 8:                                                 //  Previous pawn double-move occurred in column H.
-                       if(col(index) == 6 || col(index) == 8)       //  "index" is in the column next to column H, where the double move occurred.
-                         {
-                           if(col(index) == 6 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 8 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 6 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 8 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 6 || col(index) == 8)                //  "index" is in the column next to column H, where the double move occurred.
+                {
+                  if(col(index) == 6 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 8 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 6 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 8 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 9:                                                 //  Previous pawn double-move occurred in column I.
-                       if(col(index) == 7 || col(index) == 9)       //  "index" is in the column next to column I, where the double move occurred.
-                         {
-                           if(col(index) == 7 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 9 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ul(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 7 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(col(index) == 9 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dl(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 7 || col(index) == 9)                //  "index" is in the column next to column I, where the double move occurred.
+                {
+                  if(col(index) == 7 && isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 9 && isWhite(index, gs) && row(index) == 4 && isBlack(l(index), gs) && isPawn(l(index), gs) && isEmpty(ul(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ul(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 7 && isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(col(index) == 9 && isBlack(index, gs) && row(index) == 3 && isWhite(l(index), gs) && isPawn(l(index), gs) && isEmpty(dl(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dl(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
             case 10:                                                //  Previous pawn double-move occurred in column J.
-                       if(col(index) == 8)                          //  "index" is in the column next to column J, where the double move occurred.
-                         {
-                           if(isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = ur(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                           else if(isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
-                             {
-                               buffer[movesCtr].from = index;
-                               buffer[movesCtr].to = dr(index);
-                               buffer[movesCtr].promo = _NO_PROMO;
-                               movesCtr++;
-                             }
-                         }
-                       break;
+              if(col(index) == 8)                                   //  "index" is in the column next to column J, where the double move occurred.
+                {
+                  if(isWhite(index, gs) && row(index) == 4 && isBlack(r(index), gs) && isPawn(r(index), gs) && isEmpty(ur(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = ur(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                  else if(isBlack(index, gs) && row(index) == 3 && isWhite(r(index), gs) && isPawn(r(index), gs) && isEmpty(dr(index), gs))
+                    {
+                      buffer[movesCtr].from = index;
+                      buffer[movesCtr].to = dr(index);
+                      buffer[movesCtr].promo = _NO_PROMO;
+                      movesCtr++;
+                    }
+                }
+              break;
           }
       }
 

@@ -509,9 +509,9 @@ float score(GameState* gs)
       {
         if(isPawn(blackCoverage[i].from, gs))
           {
-            blackPawnCoverage[whitePawnCoverageLength].from = blackCoverage[i].from;
-            blackPawnCoverage[whitePawnCoverageLength].to = blackCoverage[i].to;
-            blackPawnCoverage[whitePawnCoverageLength].promo = blackCoverage[i].promo;
+            blackPawnCoverage[blackPawnCoverageLength].from = blackCoverage[i].from;
+            blackPawnCoverage[blackPawnCoverageLength].to = blackCoverage[i].to;
+            blackPawnCoverage[blackPawnCoverageLength].promo = blackCoverage[i].promo;
             blackPawnCoverageLength++;
           }
       }

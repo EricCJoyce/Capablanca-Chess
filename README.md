@@ -62,7 +62,7 @@ which is the one of four moves on file for this state.
 | _GAMESTATE_BYTE_SIZE | 84 | Number of bytes needed to encode a game state |
 | _MOVE_BYTE_SIZE | 3 | Number of bytes needed to describe a move in Chess |
 | _MAX_NUM_TARGETS | 64 | A (generous) upper bound on how many distinct destinations (not distinct moves) may be available to a player from a single index |
-| _MAX_MOVES | 128 | A (generous) upper bound on how many moves may be made by a team in a single turn |
+| _MAX_MOVES | 512 | A (generous) upper bound on how many moves may be made by a team in a single turn |
 | _PARAMETER_ARRAY_SIZE | 16 | Encodes values that are written to and read from the the search process |
 | _KILLER_MOVE_PER_PLY | 2 | Chess engines typically store 2 killer moves per ply |
 | _KILLER_MOVE_MAX_DEPTH | 64 | Not to say that we actually search to depth 64! This is just comfortably large. |

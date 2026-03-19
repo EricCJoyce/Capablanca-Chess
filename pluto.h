@@ -105,12 +105,16 @@
 #define KING_TROPISM_KNIGHT_WEIGHT                         0.5
 #define KING_TROPISM_BISHOP_WEIGHT                         1.0
 #define KING_TROPISM_ROOK_WEIGHT                           1.0
+#define KING_TROPISM_ARCHBISHOP_WEIGHT                     2.0
+#define KING_TROPISM_CHANCELLOR_WEIGHT                     1.5
 #define KING_TROPISM_QUEEN_WEIGHT                          2.0
 #define KING_TROPISM_KING_WEIGHT                           0.0
 #define KING_ZONE_ATTACKED_BY_PAWN                         2.0
 #define KING_ZONE_ATTACKED_BY_KNIGHT                       1.5
 #define KING_ZONE_ATTACKED_BY_BISHOP                       1.5
 #define KING_ZONE_ATTACKED_BY_ROOK                         3.5
+#define KING_ZONE_ATTACKED_BY_ARCHBISHOP                   4.5
+#define KING_ZONE_ATTACKED_BY_CHANCELLOR                   4.0
 #define KING_ZONE_ATTACKED_BY_QUEEN                        5.0
 #define KING_ZONE_ATTACKED_BY_KING                         2.5
 #define KING_ENDGAME_CENTRALITY                            2.0
@@ -248,6 +252,7 @@ unsigned char getCol(unsigned char, unsigned char*);
 unsigned char getRow(unsigned char, unsigned char*);
 
 float phase(GameState*);
+unsigned char phase_discrete(GameState*);
 unsigned char phase_alphas(float, float*);
 
 /**************************************************************************************************
@@ -4255,7 +4260,7 @@ float queenEarlyDevelopment(unsigned char index,
                             GameState* gs)
   {
     float h = 0.0;
-    Move queenAttacks[64];                                          //  At most, a queen may have 30 moves, (but what if we have more than one queen?)
+    Move queenAttacks[128];                                         //  At most, a queen may have 30 moves, (but what if we have more than one queen?)
     unsigned char queenAttacksLen = 0;
     Move bishopAttacks[64];                                         //  At most, a bishop may have 14 moves, (but what if we have more than two bishops?)
     unsigned char bishopAttacksLen = 0;
@@ -4494,7 +4499,7 @@ float kingEval(unsigned char index,
                GameState* gs)
   {
     float h = 0.0;
-    unsigned char ph = phase(gs);
+    unsigned char ph = phase_discrete(gs);
     unsigned char r;
     unsigned char c;
 
@@ -4705,6 +4710,10 @@ float kingTropism(unsigned char index,
           h -= kingMap[ negTeam[i] ] * KING_TROPISM_BISHOP_WEIGHT;
         else if(isRook(negTeam[i], gs))
           h -= kingMap[ negTeam[i] ] * KING_TROPISM_ROOK_WEIGHT;
+        else if(isArchbishop(negTeam[i], gs))
+          h -= kingMap[ negTeam[i] ] * KING_TROPISM_ARCHBISHOP_WEIGHT;
+        else if(isChancellor(negTeam[i], gs))
+          h -= kingMap[ negTeam[i] ] * KING_TROPISM_CHANCELLOR_WEIGHT;
         else if(isQueen(negTeam[i], gs))
           h -= kingMap[ negTeam[i] ] * KING_TROPISM_QUEEN_WEIGHT;
         else if(isKing(negTeam[i], gs))
@@ -4743,6 +4752,10 @@ float kingZoneAttacks(unsigned char index,
           h -= KING_ZONE_ATTACKED_BY_BISHOP * (float)(zone[ negMoves[i].to ]);
         else if(isRook(negMoves[i].from, gs))                       //  A Rook is attacking the King Zone (or zero).
           h -= KING_ZONE_ATTACKED_BY_ROOK * (float)(zone[ negMoves[i].to ]);
+        else if(isArchbishop(negMoves[i].from, gs))                 //  An Archbishop is attacking the King Zone (or zero).
+          h -= KING_ZONE_ATTACKED_BY_ARCHBISHOP * (float)(zone[ negMoves[i].to ]);
+        else if(isChancellor(negMoves[i].from, gs))                 //  A Chancellor is attacking the King Zone (or zero).
+          h -= KING_ZONE_ATTACKED_BY_CHANCELLOR * (float)(zone[ negMoves[i].to ]);
         else if(isQueen(negMoves[i].from, gs))                      //  A Queen is attacking the King Zone (or zero).
           h -= KING_ZONE_ATTACKED_BY_QUEEN * (float)(zone[ negMoves[i].to ]);
         else                                                        //  A King is attacking the King Zone (or zero).
@@ -5599,6 +5612,54 @@ float phase(GameState* gs)
     total = piece_total / 40.0;
     total = (total > 1.0) ? 1.0 : (total < 0.0) ? 0.0 : total;
     return total;
+  }
+
+/*  Working definitions of...
+      OPENING GAME: majority of pawns still on their original positions.
+                    both queens on board.
+                    all major pieces on board.
+                    majority of minor pieces not yet captured
+      MIDDLE GAME:  both queens on board.
+                    most major pieces on board.
+      END GAME:     absence of all other conditions  */
+unsigned char phase_discrete(GameState* gs)
+  {
+    unsigned char i;
+    unsigned char wQctr = 0;                                        //  Count queens
+    unsigned char bQctr = 0;
+    unsigned char minorCtr = 0;                                     //  Count minor pieces (Bishops and Knights)
+    unsigned char majorCtr = 0;                                     //  Count major pieces (Rooks, Archbishop, Chancellor)
+    unsigned char pPosCtr = 0;                                      //  Count all pawns on original positions
+    unsigned char pCtr = 0;                                         //  Count all pawns
+
+
+    for(i = 0; i < _NONE; i++)                                      //  Count up pieces
+      {
+        if(isQueen(i, gs))
+          {
+            if(isWhite(i, gs))
+              wQctr++;
+            else
+              bQctr++;
+          }
+        else if(isKnight(i, gs) || isBishop(i, gs))
+          minorCtr++;
+        else if(isRook(i, gs) || isArchbishop(i, gs) || isChancellor(i, gs))
+          majorCtr++;
+        else if(isPawn(i, gs))
+          {
+            pCtr++;
+            if( (isWhite(i, gs) && row(i) == 1) || (isBlack(i, gs) && row(i) == 6) )
+              pPosCtr++;
+          }
+      }
+
+    if( minorCtr >= 4 && majorCtr == 8 && wQctr == 1 && bQctr == 1 && (float)pPosCtr / (float)pCtr >= 0.5 )
+      return OPENING_GAME;
+    if(wQctr == 1 && bQctr == 1 && majorCtr >= 5)
+      return MIDDLE_GAME;
+
+    return END_GAME;
   }
 
 /* w[0] = alpha for opening-game weights.

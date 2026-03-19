@@ -315,6 +315,8 @@ unsigned char nonPawnMaterial_eval(void)
     unsigned char knights = 0;
     unsigned char bishops = 0;
     unsigned char rooks = 0;
+    unsigned char archbishops = 0;
+    unsigned char chancellors = 0;
     unsigned char queens = 0;
     unsigned char i;
 
@@ -332,6 +334,10 @@ unsigned char nonPawnMaterial_eval(void)
                   bishops++;
                 else if(isRook(i, &gs))
                   rooks++;
+                else if(isArchbishop(i, &gs))
+                  archbishops++;
+                else if(isChancellor(i, &gs))
+                  chancellors++;
                 else if(isQueen(i, &gs))
                   queens++;
               }
@@ -349,13 +355,17 @@ unsigned char nonPawnMaterial_eval(void)
                   bishops++;
                 else if(isRook(i, &gs))
                   rooks++;
+                else if(isArchbishop(i, &gs))
+                  archbishops++;
+                else if(isChancellor(i, &gs))
+                  chancellors++;
                 else if(isQueen(i, &gs))
                   queens++;
               }
           }
       }
 
-    return 3 * (knights + bishops) + 5 * rooks + 9 * queens;
+    return 3 * (knights + bishops) + 5 * rooks + 8 * archbishops + 8 * chancellors + 9 * queens;
   }
 
 /* Answer the Negamax Module's query, "What GameState results from making the move in the input-move buffer in the game state in the input-gamestate buffer?"

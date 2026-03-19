@@ -12,7 +12,7 @@ sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,sourc
 
 #define _GAMESTATE_BYTE_SIZE                    84                  /* Number of bytes needed to encode a game state. */
 #define _MOVE_BYTE_SIZE                          3                  /* Number of bytes needed to encode a move. */
-#define _MAX_MOVES                             128                  /* A (generous) upper bound on how many moves may be made by a team in a single turn. */
+#define _MAX_MOVES                             512                  /* A (generous) upper bound on how many moves may be made by a team in a single turn. */
 #define _NONE                                   80                  /* Required as a "blank" value without #include "gamestate.h". */
 #define _NO_PROMO                                0                  /* Required as a "blank" value without #include "gamestate.h". */
 
@@ -287,7 +287,7 @@ unsigned char queryMoveBuffer[_MOVE_BYTE_SIZE];                     //  Input fr
                                                                     //  Global array containing a serialized (answer) game state:
 unsigned char answerGameStateBuffer[_GAMESTATE_BYTE_SIZE];          //  Output from evaluationEngine to negamaxEngine.
 
-                                                                    //  1024 bytes.
+                                                                    //  4096 bytes.
                                                                     //  Global array containing: {serialized (answer-move, rough score, quiet-flag)}:
                                                                     //  Output from evaluationEngine to negamaxEngine.
 unsigned char answerMovesBuffer[_MAX_MOVES * (_MOVE_BYTE_SIZE + 5)];//  The actual number of moves is the unsigned char returned by this function.
@@ -321,24 +321,24 @@ unsigned char negamaxMovesBuffer[4 + _TREE_SEARCH_ARRAY_SIZE * _NEGAMAX_MOVE_BYT
                                                                     //    (ply-MAX-1 from, ply-MAX-1 to) (ply-MAX-1 from, ply-MAX-1 to)  ]
 unsigned char killerMovesTableBuffer[_KILLER_MOVE_PER_PLY * 2 * _KILLER_MOVE_MAX_DEPTH];
 
-                                                                    //  8,192 bytes.
+                                                                    //  12,800 bytes.
                                                                     //  2 is for 2 teams, white and black.
                                                                     //  Note that we don't care about promotion choices here; just bump up moves (from, to).
                                                                     //  This buffer is arranged as:
-                                                                    //  [ White to move, From-index 0,  To-indices 0 .. 63,
-                                                                    //                   From-index 1,  To-indices 0 .. 63,
-                                                                    //                   From-index 2,  To-indices 0 .. 63,
+                                                                    //  [ White to move, From-index 0,  To-indices 0 .. 79,
+                                                                    //                   From-index 1,  To-indices 0 .. 79,
+                                                                    //                   From-index 2,  To-indices 0 .. 79,
                                                                     //                                 . . .
-                                                                    //                   From-index 63, To-indices 0 .. 63,
-                                                                    //    Black to move, From-index 0,  To-indices 0 .. 63,
-                                                                    //                   From-index 1,  To-indices 0 .. 63,
-                                                                    //                   From-index 2,  To-indices 0 .. 63,
+                                                                    //                   From-index 79, To-indices 0 .. 79,
+                                                                    //    Black to move, From-index 0,  To-indices 0 .. 79,
+                                                                    //                   From-index 1,  To-indices 0 .. 79,
+                                                                    //                   From-index 2,  To-indices 0 .. 79,
                                                                     //                                 . . .
-unsigned char historyTableBuffer[2 * _NONE * _NONE];                //                   From-index 63, To-indices 0 .. 63  ]
+unsigned char historyTableBuffer[2 * _NONE * _NONE];                //                   From-index 79, To-indices 0 .. 79  ]
 
-                                                                    //  SUBTOTAL:  18,763,196 bytes.
+                                                                    //  SUBTOTAL:  18,770,876 bytes.
                                                                     //  Give the stack 1,048,576 bytes.
-                                                                    //  TOTAL:     19,811,772 bytes.
+                                                                    //  TOTAL:     19,819,452 bytes.
                                                                     //  Round to:  19,857,408 = 303 pages (cover units of 65,536).
 
 /**************************************************************************************************

@@ -410,16 +410,9 @@ class Player
                                                                     //  Capture.
                               if(gameEngine.instance.exports.isWhite_client(Select_B))
                                 animationInstruction = {a:Select_A, b:Select_B, promo:PromotionTarget, action:'die'};
-                                                                    //  Kingside castle.
-                              else if(Select_A == _E8 && Select_B == _G8 &&
-                                      gameEngine.instance.exports.isBlack_client(_E8) && gameEngine.instance.exports.isKing_client(_E8) &&
-                                      !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackKingsidePrivilege_client())
-                                animationInstruction = {a:Select_A, b:Select_B, c:_H8, d:_F8, action:'castle'};
-                                                                    //  Queenside castle.
-                              else if(Select_A == _E8 && Select_B == _C8 &&
-                                      gameEngine.instance.exports.isBlack_client(_E8) && gameEngine.instance.exports.isKing_client(_E8) &&
-                                      !gameEngine.instance.exports.blackCastled_client() && gameEngine.instance.exports.blackQueensidePrivilege_client())
-                                animationInstruction = {a:Select_A, b:Select_B, c:_A8, d:_D8, action:'castle'};
+                                                                    //  Castling.
+                              else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, PromotionTarget))
+                                animationInstruction = {a:Select_A, b:Select_B, c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B), d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B), action:'castle'};
                                                                     //  En passant capture.
                               else if(isEnPassantCapture(Select_A, Select_B))
                                 animationInstruction = {a:Select_A, b:Select_B, action:'dieEnPassant'};
@@ -432,16 +425,9 @@ class Player
                                                                     //  Capture.
                               if(gameEngine.instance.exports.isBlack_client(Select_B))
                                 animationInstruction = {a:Select_A, b:Select_B, promo:PromotionTarget, action:'die'};
-                                                                    //  Kingside castle.
-                              else if(Select_A == _E1 && Select_B == _G1 &&
-                                      gameEngine.instance.exports.isWhite_client(_E1) && gameEngine.instance.exports.isKing_client(_E1) &&
-                                      !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteKingsidePrivilege_client())
-                                animationInstruction = {a:Select_A, b:Select_B, c:_H1, d:_F1, action:'castle'};
-                                                                    //  Queenside castle.
-                              else if(Select_A == _E1 && Select_B == _C1 &&
-                                      gameEngine.instance.exports.isWhite_client(_E1) && gameEngine.instance.exports.isKing_client(_E1) &&
-                                      !gameEngine.instance.exports.whiteCastled_client() && gameEngine.instance.exports.whiteQueensidePrivilege_client())
-                                animationInstruction = {a:Select_A, b:Select_B, c:_A1, d:_D1, action:'castle'};
+                                                                    //  Castling.
+                              else if(gameEngine.instance.exports.isCastle_client(Select_A, Select_B, PromotionTarget))
+                                animationInstruction = {a:Select_A, b:Select_B, c:gameEngine.instance.exports.getRookSrcCastle_client(Select_A, Select_B), d:gameEngine.instance.exports.getRookDstCastle_client(Select_A, Select_B), action:'castle'};
                                                                     //  En passant capture.
                               else if(isEnPassantCapture(Select_A, Select_B))
                                 animationInstruction = {a:Select_A, b:Select_B, action:'dieEnPassant'};

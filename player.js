@@ -178,10 +178,6 @@ class Player
                                  {
                                    return this.evaluationEngine.instance.exports.sideToMove_eval();
                                  }.bind(this),
-                               _isQuiet: function()                 //  Returns bool.
-                                 {
-                                   return this.evaluationEngine.instance.exports.isQuiet_eval();
-                                 }.bind(this),
                                _isTerminal: function()              //  Returns bool.
                                  {
                                    return this.evaluationEngine.instance.exports.isTerminal_eval();

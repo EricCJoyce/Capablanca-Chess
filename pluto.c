@@ -1,6 +1,6 @@
 /*
 
-sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getInputGameStateBuffer','_getInputMoveBuffer','_getOutputGameStateBuffer','_getOutputMovesBuffer','_sideToMove_eval','_isQuiet_eval','_isTerminal_eval','_isSideToMoveInCheck_eval','_nonPawnMaterial_eval','_makeMove_eval','_makeNullMove_eval','_evaluate_eval','_getMoves_eval']" -Wl,--no-entry "pluto.c" -o "eval.wasm"
+sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src emscripten-c emcc -Os -s STANDALONE_WASM -s EXPORTED_FUNCTIONS="['_getInputGameStateBuffer','_getInputMoveBuffer','_getOutputGameStateBuffer','_getOutputMovesBuffer','_sideToMove_eval','_isTerminal_eval','_isSideToMoveInCheck_eval','_nonPawnMaterial_eval','_makeMove_eval','_makeNullMove_eval','_evaluate_eval','_getMoves_eval']" -Wl,--no-entry "pluto.c" -o "eval.wasm"
 
 */
 
@@ -36,7 +36,6 @@ void deserializeGameState(GameState*);
 void deserializeMove(Move*);
 
 unsigned char sideToMove_eval(void);
-bool isQuiet_eval(void);
 bool isTerminal_eval(void);
 bool isSideToMoveInCheck_eval(void);
 unsigned char nonPawnMaterial_eval(void);
@@ -277,14 +276,6 @@ unsigned char sideToMove_eval(void)
     GameState gs;
     deserializeGameState(&gs);                                      //  Recover GameState from buffer.
     return gs.whiteToMove ? _WHITE_TO_MOVE : _BLACK_TO_MOVE;
-  }
-
-/* Answer the Negamax Module's query, "Is the GameState in the query buffer quiet?" */
-bool isQuiet_eval(void)
-  {
-    GameState gs;
-    deserializeGameState(&gs);                                      //  Recover GameState from buffer.
-    return quiet(&gs);
   }
 
 /* Answer the Negamax Module's query, "Is the GameState in the query buffer terminal?" */

@@ -149,10 +149,6 @@ __attribute__((import_module("env"), import_name("_copyEvalOutput2AnswerMovesBuf
 __attribute__((import_module("env"), import_name("_sideToMove"))) unsigned char sideToMove();
                                                                     //  Bridge between WebAssembly Modules:
                                                                     //  Query the Evaluation Engine.
-                                                                    //  Is the GameState encoded in Evaluation Engine's input buffer quiet?
-__attribute__((import_module("env"), import_name("_isQuiet"))) bool isQuiet();
-                                                                    //  Bridge between WebAssembly Modules:
-                                                                    //  Query the Evaluation Engine.
                                                                     //  Is the GameState encoded in Evaluation Engine's input buffer terminal?
 __attribute__((import_module("env"), import_name("_isTerminal"))) bool isTerminal();
                                                                     //  Bridge between WebAssembly Modules:

@@ -181,7 +181,7 @@ bool isConnectedPawn(unsigned char, unsigned char, GameState*);
 bool isPassedPawn(unsigned char, unsigned char, GameState*);
 bool isCandidatePassedPawn(unsigned char, unsigned char, GameState*);
 bool isUnstoppablePawn(unsigned char, unsigned char, Move*, unsigned char, Move*, unsigned char, GameState*);
-bool isSentryPawn(unsigned char, GameState*);
+bool isSentryPawn(unsigned char, unsigned char, GameState*);
 
 float development(bool, GameState* gs);
 
@@ -1110,7 +1110,7 @@ unsigned int getBishopCoverage(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1175,7 +1175,7 @@ unsigned int getRookCoverage(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1240,7 +1240,7 @@ unsigned int getArchbishopCoverage(unsigned char index, GameState* gs, Move* buf
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1365,7 +1365,7 @@ unsigned int getChancellorCoverage(unsigned char index, GameState* gs, Move* buf
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1490,7 +1490,7 @@ unsigned int getQueenCoverage(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in any direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1772,7 +1772,7 @@ unsigned int getBishopScope(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1837,7 +1837,7 @@ unsigned int getRookScope(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -1902,7 +1902,7 @@ unsigned int getArchbishopScope(unsigned char index, GameState* gs, Move* buffer
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2027,7 +2027,7 @@ unsigned int getChancellorScope(unsigned char index, GameState* gs, Move* buffer
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2152,7 +2152,7 @@ unsigned int getQueenScope(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in any direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2369,7 +2369,7 @@ unsigned int getBishopXRay(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2434,7 +2434,7 @@ unsigned int getRookXRay(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2499,7 +2499,7 @@ unsigned int getArchbishopXRay(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[8];                                       //  Upper bound in a diagonal direction is 8 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2624,7 +2624,7 @@ unsigned int getChancellorXRay(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in an orthogonal direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2749,7 +2749,7 @@ unsigned int getQueenXRay(unsigned char index, GameState* gs, Move* buffer)
     unsigned int movesCtr = 0;
     unsigned char len = 0;
     unsigned char i;
-    unsigned char tmpBuff[8];                                       //  Upper bound in any direction is 8 on an 8 x 8 board.
+    unsigned char tmpBuff[10];                                      //  Upper bound in any direction is 10 on a 10 x 8 board.
     char* flags;
 
     if(isWhite(index, gs))
@@ -2939,7 +2939,7 @@ float pawnstructure(unsigned char* posTeam, unsigned char posLen,
                              gs))
           h += UNSTOPPABLE_PAWN_BONUS;
 
-        if(isSentryPawn(posPawns[i], gs))
+        if(isSentryPawn(posPawns[i], posPawns[i + 1], gs))
           h += SENTRY_PAWN_BONUS;
       }
 
@@ -2975,7 +2975,7 @@ bool isIsolatedPawn(unsigned char pawnCol, unsigned char pawnRow, GameState* gs)
     bool white;
     bool ret = true;
 
-    white = isWhite(pawnRow * 8 + pawnCol, gs);
+    white = isWhite(pawnRow * 10 + pawnCol, gs);
 
     if(pawnCol == 0)
       {
@@ -3094,7 +3094,7 @@ bool isConnectedPawn(unsigned char pawnCol, unsigned char pawnRow, GameState* gs
                  (sameSide(index, ur(index), gs) && isPawn(ur(index), gs)) ||
                  (sameSide(index, dr(index), gs) && isPawn(dr(index), gs)) );
       }
-    else if(pawnCol == 7)
+    else if(pawnCol == 9)
       {
         return ( (sameSide(index, l(index), gs) && isPawn(l(index), gs)) ||
                  (sameSide(index, ul(index), gs) && isPawn(ul(index), gs)) ||
@@ -3378,6 +3378,9 @@ bool isUnstoppablePawn(unsigned char pawnCol, unsigned char pawnRow, Move* negMo
         while(i < 8 && c[i] != index)                               //  Find pawn's index in column
           i++;
 
+        if(i >= 8)                                                  //  No pawn found.
+          return false;
+
         if(isWhite(index, gs))
           {
             while(i < 8)                                            //  White pawns move UP
@@ -3440,9 +3443,10 @@ bool isUnstoppablePawn(unsigned char pawnCol, unsigned char pawnRow, Move* negMo
   }
 
 /* A pawn is sentry if it stands in the same column as an enemy pawn (blocking advancement) */
-bool isSentryPawn(unsigned char pawnCol, GameState* gs)
+bool isSentryPawn(unsigned char pawnCol, unsigned char pawnRow, GameState* gs)
   {
-    return (!isSemiOpenFile(pawnCol, gs) && !isOpenFile(pawnCol, gs));
+    unsigned char index = pawnRow * 10 + pawnCol;
+    return (!isSemiOpenFile(index, gs) && !isOpenFile(index, gs));
   }
 
 /**************************************************************************************************
@@ -5006,7 +5010,7 @@ float pins(unsigned char* posTeam, unsigned char posTeamLen,
            Move* negCoverage, unsigned int negCoverageLen, GameState* gs)
   {
     float h = 0.0;                                                  //  Pins score to return.
-    unsigned char set[8];                                           //  Set builder: on an 8 x 8 board, no set will be larger than 8.
+    unsigned char set[10];                                          //  Set builder: on a 10 x 8 board, no set will be larger than 10.
     unsigned char setLen;                                           //  Set length.
     unsigned char i, j;                                             //  Count through team, count through sets.
 
@@ -5625,12 +5629,12 @@ unsigned char getCol(unsigned char index, unsigned char* c)
     if(index < _NONE)
       {
         i = col(index);
-        j = i + 57;
+        j = i + 71;
 
         while(i < j)
           {
             c[k] = i;
-            i += 8;
+            i += 10;
             k++;
           }
       }

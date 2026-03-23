@@ -1981,7 +1981,7 @@ void killerAdd(unsigned char ply, unsigned char* moveByteArray)
 /* Look up the history-heuristic score for the given side to move, the given move (sans promotion). */
 unsigned int historyLookup(unsigned char sideToMove, unsigned char* moveByteArray)
   {
-    unsigned int offset = sideToMove * _NONE;
+    unsigned int offset = sideToMove * _NONE * _NONE;
 
     offset += moveByteArray[0] * _NONE + moveByteArray[1];
 
@@ -1993,7 +1993,7 @@ void historyUpdate(unsigned char sideToMove, unsigned char ply, unsigned char* m
   {
     unsigned int inc = ply * ply;
     unsigned int value;
-    unsigned int offset = sideToMove * _NONE;
+    unsigned int offset = sideToMove * _NONE * _NONE;
 
     offset += moveByteArray[0] * _NONE + moveByteArray[1];
     value = historyTableBuffer[offset] + inc;

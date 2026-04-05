@@ -543,7 +543,7 @@ function allPromotablePiecesHUD(team)
     str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_BISHOP);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/bishop.jpg"/></a></td></tr>';
     str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_ROOK);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/rook.jpg"/></a></td></tr>';
     str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_ARCHBISHOP);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/archbishop.jpg"/></a></td></tr>';
-    str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_CHANCELOR);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/chancellor.jpg"/></a></td></tr>';
+    str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_CHANCELLOR);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/chancellor.jpg"/></a></td></tr>';
     str += '<tr><td><a href="javascript:;" onClick="choosePromo(_PROMO_QUEEN);"><img class="gamesettingbutton" src="https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/obj/img/hud/' + team + '/queen.jpg"/></a></td></tr>';
     return str;
   }

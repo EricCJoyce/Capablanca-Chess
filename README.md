@@ -227,7 +227,7 @@ Especially important:
 If this code was helpful to you, please cite this repository.
 
 ```
-@misc{chess,
+@misc{capablancachess,
   title={Capablanca Chess in C},
   author={Eric C. Joyce},
   year={2026},

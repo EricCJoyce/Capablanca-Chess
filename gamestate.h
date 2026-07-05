@@ -2743,18 +2743,18 @@ bool isWhiteKingside(Move* move, GameState* gs)
       return false;
 
     return (isWhite(move->from, gs) && isKing(move->from, gs) && gs->whiteKingsidePrivilege &&
-            (gs->setup == _SETUP_CAPABLANCA && move->from == 5 && move->to == 8) ||
-            (gs->setup == _SETUP_BIRD       && move->from == 5 && move->to == 8) ||
-            (gs->setup == _SETUP_EMBASSY    && move->from == 4 && move->to == 7) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 6) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 7) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 8) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 6) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 7) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 8) ||
-            (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 7) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 7) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 8) );
+            ( (gs->setup == _SETUP_CAPABLANCA && move->from == 5 && move->to == 8) ||
+              (gs->setup == _SETUP_BIRD       && move->from == 5 && move->to == 8) ||
+              (gs->setup == _SETUP_EMBASSY    && move->from == 4 && move->to == 7) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 6) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 7) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 8) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 6) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 7) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 8) ||
+              (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 7) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 7) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 8) ) );
   }
 
 /* Does the given Move describe a queenside castling by white, given the GameState 'gs'?
@@ -2788,17 +2788,17 @@ bool isWhiteQueenside(Move* move, GameState* gs)
       return false;
 
     return (isWhite(move->from, gs) && isKing(move->from, gs) && gs->whiteQueensidePrivilege &&
-            (gs->setup == _SETUP_CAPABLANCA && move->from == 5 && move->to == 2) ||
-            (gs->setup == _SETUP_BIRD       && move->from == 5 && move->to == 2) ||
-            (gs->setup == _SETUP_EMBASSY    && move->from == 4 && move->to == 1) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 1) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 2) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 1) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 2) ||
-            (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 3) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 1) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 2) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 3) );
+            ( (gs->setup == _SETUP_CAPABLANCA && move->from == 5 && move->to == 2) ||
+              (gs->setup == _SETUP_BIRD       && move->from == 5 && move->to == 2) ||
+              (gs->setup == _SETUP_EMBASSY    && move->from == 4 && move->to == 1) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 1) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 4 && move->to == 2) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 1) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 4 && move->to == 2) ||
+              (gs->setup == _SETUP_PAULOWICH  && move->from == 5 && move->to == 3) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 1) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 2) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 5 && move->to == 3) ) );
   }
 
 /* Does the given Move describe a kingside castling by black, given the GameState 'gs'?
@@ -2832,18 +2832,18 @@ bool isBlackKingside(Move* move, GameState* gs)
       return false;
 
     return (isBlack(move->from, gs) && isKing(move->from, gs) && gs->blackKingsidePrivilege &&
-            (gs->setup == _SETUP_CAPABLANCA && move->from == 75 && move->to == 78) ||
-            (gs->setup == _SETUP_BIRD       && move->from == 75 && move->to == 78) ||
-            (gs->setup == _SETUP_EMBASSY    && move->from == 74 && move->to == 77) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 76) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 77) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 78) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 76) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 77) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 78) ||
-            (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 77) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 77) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 78) );
+            ( (gs->setup == _SETUP_CAPABLANCA && move->from == 75 && move->to == 78) ||
+              (gs->setup == _SETUP_BIRD       && move->from == 75 && move->to == 78) ||
+              (gs->setup == _SETUP_EMBASSY    && move->from == 74 && move->to == 77) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 76) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 77) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 78) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 76) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 77) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 78) ||
+              (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 77) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 77) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 78) ) );
   }
 
 /* Does the given Move describe a queenside castling by black, given the GameState 'gs'?
@@ -2877,17 +2877,17 @@ bool isBlackQueenside(Move* move, GameState* gs)
       return false;
 
     return (isBlack(move->from, gs) && isKing(move->from, gs) && gs->blackQueensidePrivilege &&
-            (gs->setup == _SETUP_CAPABLANCA && move->from == 75 && move->to == 72) ||
-            (gs->setup == _SETUP_BIRD       && move->from == 75 && move->to == 72) ||
-            (gs->setup == _SETUP_EMBASSY    && move->from == 74 && move->to == 71) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 71) ||
-            (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 72) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 71) ||
-            (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 72) ||
-            (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 73) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 71) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 72) ||
-            (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 73) );
+            ( (gs->setup == _SETUP_CAPABLANCA && move->from == 75 && move->to == 72) ||
+              (gs->setup == _SETUP_BIRD       && move->from == 75 && move->to == 72) ||
+              (gs->setup == _SETUP_EMBASSY    && move->from == 74 && move->to == 71) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 71) ||
+              (gs->setup == _SETUP_GROTESQUE  && move->from == 74 && move->to == 72) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 71) ||
+              (gs->setup == _SETUP_LADOREAN   && move->from == 74 && move->to == 72) ||
+              (gs->setup == _SETUP_PAULOWICH  && move->from == 75 && move->to == 73) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 71) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 72) ||
+              (gs->setup == _SETUP_UNIVERS    && move->from == 75 && move->to == 73) ) );
   }
 
 /**************************************************************************************************

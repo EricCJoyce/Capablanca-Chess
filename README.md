@@ -6,7 +6,7 @@ We wish to have means to compile C code into WebAssembly modules that handle gam
 
 Therefore, create a Docker container to compile WebAssembly modules. Leave the rest of my system alone.
 ```
-sudo docker build -t emscripten-c .
+sudo docker build -t c-wasm .
 ```
 
 Confirm the container's existence.
@@ -16,7 +16,7 @@ sudo docker images
 
 When you choose to, kill the container.
 ```
-sudo docker image rm emscripten-c
+sudo docker image rm c-wasm
 ```
 
 ## Zobrist hash generator

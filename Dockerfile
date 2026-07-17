@@ -1,5 +1,5 @@
 #  Build a Docker image that can compile C and C++ into WebAssembly.
-#          sudo docker build -t emscripten-c .
+#          sudo docker build -t c-wasm .
 
 FROM emscripten/emsdk
 

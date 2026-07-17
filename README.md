@@ -57,7 +57,7 @@ which is the one of four moves on file for this state.
 
 ## Constants for the chess engine
 
-| Name  | Bytes  | Description |
+| Name  | Value  | Description |
 | :---:	| :----: | :---------: |
 | _GAMESTATE_BYTE_SIZE | 84 | Number of bytes needed to encode a game state |
 | _MOVE_BYTE_SIZE | 3 | Number of bytes needed to describe a move in Chess |

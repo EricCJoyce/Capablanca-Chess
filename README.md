@@ -1,4 +1,4 @@
-# [Capablanca-Chess](https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/index.php?lang=en)
+# [Capablanca Chess](https://www.ericjoycefilm.com/wastesoftime/boardgames/capablancachess/index.php?lang=en)
 Notes on the creation of Capablanca Chess
 
 ## Docker container to compile C to WebAssembly

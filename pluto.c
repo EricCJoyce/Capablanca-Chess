@@ -463,7 +463,7 @@ unsigned int getMoves_eval()
         for(k = 0; k < 4; k++)                                      //  Copy local SIGNED score to global output byte array.
           outputMovesBuffer[i++] = buffer4[k];
                                                                     //  0: quiet; 1: capture or promotion.
-        outputMovesBuffer[i++] = (moves[j].promo == _NO_PROMO || !isCapture(moves + j, &gs)) ? 0 : 1;
+        outputMovesBuffer[i++] = (moves[j].promo == _NO_PROMO && !isCapture(moves + j, &gs)) ? 0 : 1;
       }
 
     return movesLen;

@@ -525,9 +525,9 @@ signed int SEE(Move* move, GameState* src)
       {
         for(j = gainsLen - 1; j >= 0; j--)
           {
-            stopHere = -gains[j];                                   //  It is in side-to-move's interest to stop here.
+            stopHere = gains[j];                                    //  It is in side-to-move's interest to stop here.
             continueExchange = gains[j + 1];                        //  It is in side-to-move's interest to continue exchanging.
-            gains[j] = (stopHere > continueExchange) ? stopHere : continueExchange;
+            gains[j] = (stopHere > continueExchange) ? -stopHere : -continueExchange;
           }
       }
 

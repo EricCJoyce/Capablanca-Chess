@@ -1299,6 +1299,24 @@ int main(int argc, char* argv[])
 /**************************************************************************************************
  Zobrist hashing  */
 
+/* Game State Encoding & Decoding
+
+   Byte [     0] = Side to move and castling data: [7][6][5][4][3][2][1][0]
+                                                    ^  ^  ^  ^  ^  ^  ^  ^
+                                                    |  |  |  |  |  |  |  +---
+                                                    |  |  |  |  |  |  +------ ON: black has castled.
+                                                    |  |  |  |  |  +--------- ON: black has queenside privilege.
+                                                    |  |  |  |  +------------ ON: black has kingside privilege.
+                                                    |  |  |  +--------------- ON: white has castled.
+                                                    |  |  +------------------ ON: white has queenside privilege.
+                                                    |  +--------------------- ON: white has kingside privilege.
+                                                    +------------------------ ON: white to move; OFF: black to move.
+   Byte [     1] = En-passant data:                In [0, 10].
+   Bytes[ 2, 81] = Board encoding.
+   Byte [    82] = Setup code:                     In {_SETUP_CAPABLANCA, _SETUP_BIRD, _SETUP_CARRERA, _SETUP_EMBASSY,
+                                                       _SETUP_GROTESQUE, _SETUP_LADOREAN, _SETUP_PAULOWICH, _SETUP_UNIVERS}.
+   Byte [    83] = Move counter                     */
+
 /* Hash the given byte array "hashInputBuffer". */
 unsigned long long hash(unsigned char* hashInputBuffer)
   {
@@ -1482,6 +1500,9 @@ unsigned long long hash(unsigned char* hashInputBuffer)
 
         i++;
       }
+
+                                                                    //  We do NOT hash the starting setup.
+                                                                    //  We do NOT hash the move counter.
 
     return h;
   }

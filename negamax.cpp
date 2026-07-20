@@ -647,6 +647,7 @@ void initSearch(bool initializeForWhite)
     root.flags = NN_FLAG_AT_ROOT;                                   //  Set root flag.
 
     saveNegamaxSearchBufferLength(1);                               //  Write number of NegamaxNodes in "negamaxSearchBuffer".
+    saveNegamaxMoveBufferLength(0);                                 //  Blank out the move buffer.
     saveNode(&root, 0);                                             //  Write serialized node to head of "negamaxSearchBuffer".
 
     return;
@@ -1186,6 +1187,9 @@ void nextMove_step(unsigned int gsIndex, NegamaxNode* node)
     child.alpha = -node->beta;
     child.beta = -node->alpha;
     child.value = -std::numeric_limits<float>::infinity();
+
+    child.zhash = 0L;
+    child.hIndex = 0;
 
     child.phase = _PHASE_ENTER_NODE;                                //  Receive at this phase.
     child.flags = 0;

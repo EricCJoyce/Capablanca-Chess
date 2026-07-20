@@ -261,7 +261,7 @@ class Player
                                                                     //  Assign offset to auxiliary buffer.
                                                                     //  This is a working buffer that holds the history-heuristic table.
                         this.negamaxHistoryHeuristicOffset = this.negamaxEngine.instance.exports.getHistoryTableBuffer();
-                        this.negamaxHistoryHeuristicBuffer = new Uint8Array(this.negamaxEngine.instance.exports.memory.buffer, this.negamaxHistoryHeuristicOffset, 2 * (_NOTHING + _NOTHING));
+                        this.negamaxHistoryHeuristicBuffer = new Uint8Array(this.negamaxEngine.instance.exports.memory.buffer, this.negamaxHistoryHeuristicOffset, 2 * _NOTHING * _NOTHING);
 
                         this.TranspositionTableBuffer[0] = 1;       //  Set "generation byte" to 1.
 
@@ -393,7 +393,7 @@ class Player
                         {                                           //  If we have not yet searched as deeply as we intend to search,
                           this.currentPly++;                        //  then increment the iterative depth.
                           this.branches[ this.branchIterator ].status = STATUS_SEARCHING;
-                          this.initalizeSearch();                   //  Load the game state to which "branchIterator" currently points into Negamax Module.
+                          this.initializeSearch();                  //  Load the game state to which "branchIterator" currently points into Negamax Module.
                         }
                       else
                         {
@@ -459,7 +459,7 @@ class Player
                     this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_STOP_REQUESTED);
                                                                     //  Indicate that we are NOT "pondering"--we are SEARCHING.
                     this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_PONDERING);
-                    this.initalizeSearch();                         //  Load this state into the search engine.
+                    this.initializeSearch();                        //  Load this state into the search engine.
                   }
                 else if(this.branches.length == 1)                  //  One WRONG game state.
                   {
@@ -505,7 +505,7 @@ class Player
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_STOP_REQUESTED);
                                                                     //  Indicate that we are NOT "pondering"--we are SEARCHING.
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_PONDERING);
-                          this.initalizeSearch();                   //  Load this state into the search engine.
+                          this.initializeSearch();                  //  Load this state into the search engine.
                           break;
 
                         case NEGAMAX_STATUS_DONE:                   //  Engine is done.
@@ -541,7 +541,7 @@ class Player
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_STOP_REQUESTED);
                                                                     //  Indicate that we are NOT "pondering"--we are SEARCHING.
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_PONDERING);
-                          this.initalizeSearch();                   //  Load this state into the search engine.
+                          this.initializeSearch();                  //  Load this state into the search engine.
                           break;
 
                         case NEGAMAX_STATUS_RUNNING:                //  Engine is running.
@@ -598,7 +598,7 @@ class Player
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_STOP_REQUESTED);
                                                                     //  Indicate that we are NOT "pondering"--we are SEARCHING.
                           this.negamaxEngine.instance.exports.unsetControlFlag(NEGAMAX_CTRL_PONDERING);
-                          this.initalizeSearch();                   //  Load this state into the search engine.
+                          this.initializeSearch();                  //  Load this state into the search engine.
                           break;
                       }
                   }
@@ -678,7 +678,7 @@ class Player
                             }
                         }
 
-                      this.initalizeSearch();                       //  Load the game state to which "branchIterator" currently points into Negamax Module.
+                      this.initializeSearch();                      //  Load the game state to which "branchIterator" currently points into Negamax Module.
 
                       break;
                   }
@@ -771,7 +771,7 @@ class Player
                   {
                     if(this.responseText == "")                     //  Null return: unknown error. Whatever; proceed with search.
                       {
-                        this.Parent.initalizeSearch();              //  Set this branch as root for the Negamax Module.
+                        this.Parent.initializeSearch();             //  Set this branch as root for the Negamax Module.
                         this.Parent.branches[ this.branchIterator ].status = STATUS_SEARCHING;
                       }
                     else
@@ -791,13 +791,13 @@ class Player
                               }
                             else                                    //  "failed", "notfound", or "error". Whatever; proceed with search.
                               {
-                                this.Parent.initalizeSearch();      //  Set this branch as root for the Negamax Module.
+                                this.Parent.initializeSearch();     //  Set this branch as root for the Negamax Module.
                                 this.Parent.branches[ this.Parent.branchIterator ].status = STATUS_SEARCHING;
                               }
                           }
                         else                                        //  Contact fail or garbage. Whatever; proceed with search.
                           {
-                            this.Parent.initalizeSearch();          //  Set this branch as root for the Negamax Module.
+                            this.Parent.initializeSearch();         //  Set this branch as root for the Negamax Module.
                             this.Parent.branches[ this.Parent.branchIterator ].status = STATUS_SEARCHING;
                           }
                       }
@@ -815,7 +815,7 @@ class Player
       }
 
     /* Set up the search routine for the game state in this.branches[ this.branchIterator ]. */
-    initalizeSearch()
+    initializeSearch()
       {
         var i;
                                                                     //  First, copy the byte array from this.branches[ this.branchIterator ]
@@ -823,7 +823,7 @@ class Player
           this.negamaxInputBuffer[i] = this.branches[ this.branchIterator ].gamestate[i];
                                                                     //  Set this search's ID.
         this.negamaxEngine.instance.exports.setSearchId( this.branches[ this.branchIterator ].id );
-        this.negamaxEngine.instance.exports.setControlFlag(0);      //  Blank out control flags.
+        this.negamaxEngine.instance.exports.unsetControlFlag(0xFF); //  Blank out control flags.
                                                                     //  Set the target depth.
         this.negamaxEngine.instance.exports.setTargetDepth( this.currentPly );
         this.negamaxEngine.instance.exports.initSearch();

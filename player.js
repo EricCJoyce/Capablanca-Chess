@@ -744,6 +744,9 @@ class Player
         this.negamaxEngine.instance.exports.resetNodesSearched();   //  Reset the number of nodes counted.
                                                                     //  Indicate that we are "pondering".
         this.negamaxEngine.instance.exports.setControlFlag(NEGAMAX_CTRL_PONDERING);
+                                                                    //  Increment the transposition table's generation counter.
+        if(this.negamaxEngine.instance.exports.incTranspoTableGeneration())
+          console.log('(Age rollover: transpo-table cleared.)');
 
         return;
       }

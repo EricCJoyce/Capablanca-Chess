@@ -72,7 +72,11 @@ unsigned char getGeneration(void)
 void incGeneration(void)
   {
     if(transpositionTableBuffer[0] == 255)
-      transpositionTableBuffer[0] = 1;
+      {
+                                                                    //  At roll-over, nuke the table.
+        memset(transpositionTableBuffer + 1, 0, sizeof(transpositionTableBuffer) - 1);
+        transpositionTableBuffer[0] = 1;                            //  Roll over to 1 because 0 means "empty slot".
+      }
     else
       transpositionTableBuffer[0]++;
     return;

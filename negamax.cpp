@@ -1,6 +1,6 @@
 /*
 
-sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src c-wasm em++ -I ./ -Os -s STANDALONE_WASM -s INITIAL_MEMORY=19857408 -s STACK_SIZE=1048576 -s EXPORTED_FUNCTIONS="['_getMaxPly','_getInputBuffer','_getParametersBuffer','_getQueryGameStateBuffer','_getQueryMoveBuffer','_getAnswerGameStateBuffer','_getAnswerMovesBuffer','_getOutputBuffer','_getZobristHashBuffer','_getTranspositionTableBuffer','_getNegamaxSearchBuffer','_getNegamaxMovesBuffer','_getKillerMovesBuffer','_getHistoryTableBuffer','_setSearchId','_getSearchId','_getStatus','_setControlFlag','_unsetControlFlag','_getControlByte','_setTargetDepth','_getTargetDepth','_getDepthAchieved','_setDeadline','_getDeadline','_resetNodesSearched','_getNodesSearched','_finalDepthAchieved','_finalScore','_getNodeStackSize','_getMovesArenaSize','_initSearch','_negamax']" -Wl,--no-entry "negamax.cpp" -o "negamax.wasm"
+sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,source=$(pwd),target=/home/src c-wasm em++ -I ./ -Os -s STANDALONE_WASM -s INITIAL_MEMORY=19857408 -s STACK_SIZE=1048576 -s EXPORTED_FUNCTIONS="['_getMaxPly','_getInputBuffer','_getParametersBuffer','_getQueryGameStateBuffer','_getQueryMoveBuffer','_getAnswerGameStateBuffer','_getAnswerMovesBuffer','_getOutputBuffer','_getZobristHashBuffer','_getTranspositionTableBuffer','_getNegamaxSearchBuffer','_getNegamaxMovesBuffer','_getKillerMovesBuffer','_getHistoryTableBuffer','_setSearchId','_getSearchId','_getStatus','_setControlFlag','_unsetControlFlag','_getControlByte','_setTargetDepth','_getTargetDepth','_getDepthAchieved','_setDeadline','_getDeadline','_resetNodesSearched','_getNodesSearched','_finalDepthAchieved','_finalScore','_getNodeStackSize','_getMovesArenaSize','_initSearch','_incTranspoTableGeneration','_negamax']" -Wl,--no-entry "negamax.cpp" -o "negamax.wasm"
 
 */
 
@@ -216,6 +216,7 @@ extern "C"
     unsigned int getMovesArenaSize(void);
 
     void initSearch(bool);
+    bool incTranspoTableGeneration(void);
     bool negamax(void);
   }
 
@@ -247,6 +248,7 @@ unsigned int historyLookup(unsigned char, unsigned char*);
 void historyUpdate(unsigned char, unsigned char, unsigned char*);
 
 void incrementNodeCtr(void);
+unsigned int generationAge(unsigned char, unsigned char);
 
 /**************************************************************************************************
  Globals  */
@@ -653,6 +655,16 @@ void initSearch(bool initializeForWhite)
     return;
   }
 
+/* Increase the generation stamp in the transposition table.
+   Call this function from JavaScript when a new set of possible opponent moves is generated.
+   When the transpo-table counter rolls over, we dump the entire table.
+   The bool returned here simply indicates to JavaScript when that happens (we might like to know). */
+bool incTranspoTableGeneration(void)
+  {
+    incGeneration();
+    return (transpositionTableBuffer[0] == 0);
+  }
+
 /* HEARTBEAT NEGAMAX
 
    Depth-first search for a two-player, perfect-information, zero-sum game.
@@ -955,7 +967,7 @@ void transpoProbe(unsigned int gsIndex, NegamaxNode* node)
                                                                     //  Attempt to look up the given game state (under Zobrist hash) in the transposition table.
     if(foundTTLookup)                                               //  HIT! Found this same game state.
       {
-        ttRecord.age = (ttRecord.age > 1) ? ttRecord.age - 1 : 1;   //  This record was useful: decrease its age.
+        ttRecord.age = getGeneration();                             //  This record was useful: keep it current.
                                                                     //  Save this updated (rejuvenated) record back to the byte array.
         serializeTranspoRecord(&ttRecord, transpositionTableBuffer + 1 + node->hIndex * _TRANSPO_RECORD_BYTE_SIZE);
                                                                     //  Even if it turns out that this is not a cut-off, the best move stored here
@@ -1293,7 +1305,7 @@ void finishNode_step(unsigned int gsIndex, NegamaxNode* node)
     currGen = getGeneration();                                      //  Get the current transposition-table generation.
                                                                     //  Recover whatever's at this address.
     deserializeTranspoRecord(transpositionTableBuffer + 1 + node->hIndex * _TRANSPO_RECORD_BYTE_SIZE, &ttEntry);
-    oldness = ((int)currGen - (int)ttEntry.age) & 0xFF;             //  Force modulo arithmetic.
+    oldness = generationAge(currGen, ttEntry.age);
                                                                     //  Either:
                                                                     //    This slot was free. Write.
                                                                     //  Or:
@@ -2049,4 +2061,18 @@ void incrementNodeCtr(void)
       inputParametersBuffer[PARAM_BUFFER_NODESSEARCHED_OFFSET + i] = buffer4[i];
 
     return;
+  }
+
+/**************************************************************************************************
+ Compute transposition-table record age.  */
+
+unsigned int generationAge(unsigned char current, unsigned char stored)
+  {
+    if(stored == 0)
+      return 255;                                                   //  0 signified an unused record.
+
+    if(current >= stored)
+      return current - stored;
+
+    return (255u - stored) + current;
   }

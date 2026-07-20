@@ -707,7 +707,7 @@ class Player
             for(j = 0; j < 4; j++)
               buffer4[j] = this.evaluationOutputMovesBuffer[i * (_MOVE_BYTE_SIZE + 5) + _MOVE_BYTE_SIZE + j];
             const dv = new DataView(buffer4.buffer, buffer4.byteOffset, 4);
-            moves[moves.length - 1].score = dv.getUint32(0, true);  //  Little-endian.
+            moves[moves.length - 1].score = dv.getInt32(0, true);   //  Little-endian.
           }
 
         moves.sort((a, b) => b.score - a.score);                    //  Sort descending by score.

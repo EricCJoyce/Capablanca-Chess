@@ -123,6 +123,30 @@ The other module functions are as follows:
 - `gameEngine.instance.exports.isWin_client();` returns an unsigned char indicating whether white has won, black has won, the game has reached stalemate, or the game is ongoing.
 - `gameEngine.instance.exports.draw();` prints the board to the browser console.
 
+## Command-Line Interface for TD Learning
+The same core, game-logic code is used to create a CLI for training a value network to evaluate game states and guide decision making.
+
+### Compile the CLI
+
+These files should be in the same directory to obtain the CLI:
+- capablancachess_cli_jsonl.c
+- gamestate.h
+- jsmn.h
+- pluto.h
+```
+gcc -std=c11 -O3 -Wall capablanca_cli_jsonl.c -o capablanca_cli_jsonl -lm
+```
+
+### Tune Weights using TDLeaf(Lambda)
+*Pluto* is a trio of feature vectors for opening, middle, and endgame. We wish to learn weights for these vectors that improve *Pluto*'s game. To do this, we use Python, NumPy, and the Chess CLI that feeds new game updates and features to the training loop.
+
+I have no grandmaster transcripts for Capablanca Chess or other 10 x 8 variants. So we will use the TDLeaf algorithm and self-play to tune *Pluto*'s weights:
+```
+python3 train_tdleaf.py --game capablanca --cli ./capablancachess_cli_jsonl --weights-in init_weights.json --weights-out pluto-weights.json --depth 4 --episodes 10000 --verbose --transcript-out capablanca-games.jsonl
+```
+
+Copy these tuned weights from JSON and paste them into the corresponding `#define`s at the top of `pluto.h`. This applies the learning done through TDLeaf to the evaluation engine.
+
 ## The negamax heartbeat
 For our deployment to a web page, tree-search has to become a **stack-based, continuation-passing, finite state machine**. The web page is single-threaded, so if we try to run search all at once, the rest of the page freezes. I’ve rewritten the usual recursive negamax as an explicit-stack DFS where each node carries a phase (program counter). Each "heartbeat" executes one small slice of work for the node at the top of the stack, updates the node’s phase/bookmarks, and returns control to the browser. In other words, it’s recursion turned into a continuation (resume point) stored in data. The advantages of this are that it doesn't freeze the browser, and it allows search to occur at any time, even during the human player's turn.
 

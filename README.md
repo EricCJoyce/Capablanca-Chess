@@ -138,7 +138,7 @@ gcc -std=c11 -O3 -Wall capablanca_cli_jsonl.c -o capablanca_cli_jsonl -lm
 ```
 
 ### Tune Weights using TDLeaf(Lambda)
-*Pluto* is a trio of feature vectors for opening, middle, and endgame. We wish to learn weights for these vectors that improve *Pluto*'s game. To do this, we use Python, NumPy, and the Chess CLI that feeds new game updates and features to the training loop.
+*Pluto* is a trio of feature vectors for opening, middle, and endgame. We wish to learn weights for these vectors that improve *Pluto*'s game. To do this, we use Python, NumPy, and the CLI that feeds new game updates and features to the training loop.
 
 I have no grandmaster transcripts for Capablanca Chess or other 10 x 8 variants. So we will use the TDLeaf algorithm and self-play to tune *Pluto*'s weights:
 ```

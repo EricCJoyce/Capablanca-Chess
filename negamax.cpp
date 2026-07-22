@@ -19,7 +19,7 @@ sudo docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) --mount type=bind,sourc
 #define _WHITE_TO_MOVE                           0                  /* Copied from gamestate.h. */
 #define _BLACK_TO_MOVE                           1                  /* Copied from gamestate.h. */
 
-#define _MAX_PLY                                15                  /* Deepest possible depth. */
+#define _MAX_PLY                                 6                  /* Deepest possible depth. */
 #define _QUIESCENCE_MAX_PLY                      4                  /* Maximum extension for quiescence search. */
 
 #define _PARAMETER_ARRAY_SIZE                   16                  /* Number of bytes needed to store search parameters. */

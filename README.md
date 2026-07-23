@@ -200,7 +200,7 @@ The **negamax module** has *thirteen* outward-facing buffers:
 - `negamaxSearchBuffer` is 4 + `_TREE_SEARCH_ARRAY_SIZE` * `_NEGAMAX_NODE_BYTE_SIZE` bytes long.
 - `negamaxMovesBuffer` is 4 + `_TREE_SEARCH_ARRAY_SIZE` * `_NEGAMAX_MOVE_BYTE_SIZE` bytes long.
 - `killerMovesTableBuffer` is `_KILLER_MOVE_PER_PLY` * 2 * `_KILLER_MOVE_MAX_DEPTH` bytes long.
-- `historyTableBuffer` is 2 * 64 * 64 bytes long.
+- `historyTableBuffer` is 2 * 80 * 80 bytes long.
 
 Compile the negamax module:
 ```

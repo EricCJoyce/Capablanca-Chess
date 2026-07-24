@@ -406,7 +406,8 @@ float evaluate_eval(void)
   {
     GameState gs;
     deserializeGameState(&gs);                                      //  Recover GameState from buffer.
-    return score(&gs);                                              //  Negamax rule: always evaluate for the side that is now to move.
+                                                                    //  tanh() helps to saturate extreme evaluations and produce alpha-beta cutoffs.
+    return (float)tanh(score(&gs));                                 //  Negamax rule: always evaluate for the side that is now to move.
   }
 
 /* Answer the Negamax Module's query, "What are all the moves that can be made from the GameState in the input-gamestate buffer?"

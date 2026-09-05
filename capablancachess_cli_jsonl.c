@@ -115,8 +115,7 @@ static int handle_request(const char* line)
 
     char move_hex[7];
     Move mv;
-    float piece_total;
-    float total;
+    float phaseWeights[3];
 
     const uint8_t startpos_capablanca[] = {236,0,4,2,5,3,7,8,3,6,2,4,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,12,10,13,11,15,16,11,14,10,12,0,0};
     const uint8_t startpos_bird[] = {236,0,4,2,3,6,7,8,5,3,2,4,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,12,10,11,14,15,16,13,11,10,12,1,0};
@@ -557,8 +556,12 @@ static int handle_request(const char* line)
             f[10] = pins(blackMaterial, blackMaterialLength, whiteMoves, whiteMovesLength, blackCoverage, blackCoverageLength, whiteCoverage, whiteCoverageLength, &gs) - pins(whiteMaterial, whiteMaterialLength, blackMoves, blackMovesLength, whiteCoverage, whiteCoverageLength, blackCoverage, blackCoverageLength, &gs);
           }
 
-        printf("{\"features\":[%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g]}\n",
-               f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10]);
+        phase_alphas(&gs, phaseWeights);
+
+        printf("{\"features\":[%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g,%.9g],"
+               "\"phase_alphas\":[%.9g,%.9g,%.9g]}\n",
+               f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],
+               phaseWeights[OPENING_GAME], phaseWeights[MIDDLE_GAME], phaseWeights[END_GAME]);
         return 0;
       }
 
@@ -626,28 +629,10 @@ static int handle_request(const char* line)
 
     if(strcmp(cmd, "phase") == 0)
       {
-        piece_total = 0.0;
-        for(i = 0; i < _NONE; i++)
-          {
-            if(isQueen(i, &gs))
-              piece_total += 4.0;
-            else if(isArchbishop(i, &gs))
-              piece_total += 3.0;
-            else if(isChancellor(i, &gs))
-              piece_total += 3.0;
-            else if(isRook(i, &gs))
-              piece_total += 2.0;
-            else if(isBishop(i, &gs))
-              piece_total += 1.0;
-            else if(isKnight(i, &gs))
-              piece_total += 1.0;
-            else if(isPawn(i, &gs))
-              piece_total += 0.25;
-          }
-        total = piece_total / 41.0;
-        total = (total > 1.0) ? 1.0 : (total < 0.0) ? 0.0 : total;
+        phase_alphas(&gs, phaseWeights);
 
-        printf("{\"phase\":%.9g}\n", total);                        //  Emit JSON.
+        printf("{\"phase_alphas\":[%.9g,%.9g,%.9g]}\n",
+               phaseWeights[OPENING_GAME], phaseWeights[MIDDLE_GAME], phaseWeights[END_GAME]);
         return 0;
       }
 

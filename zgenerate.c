@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-#define ZHASH_TABLE_SIZE 1257                                       /* Total number of hash keys. */
+#include "zobrist.h"                                                /* Have a single authority for the total number of hash keys. */
 
 /* Print a comma-separated string of unsigned chars representing the byte array that becomes a Zobrist Hasher.
    The first number is always ZHASH_TABLE_SIZE, the total number of hash keys.
@@ -13,34 +10,40 @@
           ctr  ==> (209 << 0) | (251 << 8) | (103 << 16) | (184 << 24) | (60 << 32) | (79 << 40) | (96 << 48) | (161 << 56)
          WP_A2 ==> (209 << 0) | (251 << 8) | (103 << 16) | (184 << 24) | (60 << 32) | (79 << 40) | (96 << 48) | (161 << 56)
            0   ==> 11628381360081075153 */
+
+#define ZHASH_BYTE_SIZE (ZHASH_TABLE_SIZE * 8)
+
 int main(void)
   {
-    unsigned long long h;
-    unsigned char buffer8[8];
+    unsigned char buffer[ZHASH_BYTE_SIZE];
+    FILE *fp;
     unsigned int i;
-    unsigned char j;
 
-    srand(time(NULL));                                              //  Seed randomizer.
-
-    printf("%d,", ZHASH_TABLE_SIZE);                                //  Output the number of hash keys.
-
-    for(i = 0; i < ZHASH_TABLE_SIZE; i++)
+    fp = fopen("/dev/urandom", "rb");
+    if(fp == NULL)
       {
-        h = rand() ^ ((unsigned long long)rand() << 15) ^
-                     ((unsigned long long)rand() << 30) ^
-                     ((unsigned long long)rand() << 45) ^
-                     ((unsigned long long)rand() << 60);
+        fprintf(stderr, "Could not open /dev/urandom.\n");
+        return EXIT_FAILURE;
+      }
 
-        memcpy(buffer8, (unsigned char*)(&h), 8);                   //  Force the unsigned long long into an 8-byte buffer.
-        for(j = 0; j < 8; j++)                                      //  Output bytes.
-          {
-            printf("%d", buffer8[j]);
-            if(j < 7)
-              printf(",");
-          }
-        if(i < ZHASH_TABLE_SIZE - 1)
+    if(fread(buffer, 1, ZHASH_BYTE_SIZE, fp) != ZHASH_BYTE_SIZE)
+      {
+        fprintf(stderr, "Could not read enough random bytes.\n");
+        fclose(fp);
+        return EXIT_FAILURE;
+      }
+
+    fclose(fp);
+
+    printf("%d,", ZHASH_TABLE_SIZE);
+
+    for(i = 0; i < ZHASH_BYTE_SIZE; i++)
+      {
+        printf("%u", (unsigned int)buffer[i]);
+
+        if(i + 1 < ZHASH_BYTE_SIZE)
           printf(",");
       }
 
-    return 0;
+    return EXIT_SUCCESS;
   }

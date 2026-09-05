@@ -6,7 +6,7 @@
 #include <string.h>
 #include <time.h>
 
-#define ZHASH_TABLE_SIZE   1257
+#define ZHASH_TABLE_SIZE   1408
 
 #define _WHITE_PAWN        0x01
 #define _WHITE_KNIGHT      0x02
@@ -1299,6 +1299,158 @@
 #define PREV_DOUBLE_COL_I   1255
 #define PREV_DOUBLE_COL_J   1256
 
+#define MOVE_CTR_0          1257
+#define MOVE_CTR_1          1258
+#define MOVE_CTR_2          1259
+#define MOVE_CTR_3          1260
+#define MOVE_CTR_4          1261
+#define MOVE_CTR_5          1262
+#define MOVE_CTR_6          1263
+#define MOVE_CTR_7          1264
+#define MOVE_CTR_8          1265
+#define MOVE_CTR_9          1266
+#define MOVE_CTR_10         1267
+#define MOVE_CTR_11         1268
+#define MOVE_CTR_12         1269
+#define MOVE_CTR_13         1270
+#define MOVE_CTR_14         1271
+#define MOVE_CTR_15         1272
+#define MOVE_CTR_16         1273
+#define MOVE_CTR_17         1274
+#define MOVE_CTR_18         1275
+#define MOVE_CTR_19         1276
+#define MOVE_CTR_20         1277
+#define MOVE_CTR_21         1278
+#define MOVE_CTR_22         1279
+#define MOVE_CTR_23         1280
+#define MOVE_CTR_24         1281
+#define MOVE_CTR_25         1282
+#define MOVE_CTR_26         1283
+#define MOVE_CTR_27         1284
+#define MOVE_CTR_28         1285
+#define MOVE_CTR_29         1286
+#define MOVE_CTR_30         1287
+#define MOVE_CTR_31         1288
+#define MOVE_CTR_32         1289
+#define MOVE_CTR_33         1290
+#define MOVE_CTR_34         1291
+#define MOVE_CTR_35         1292
+#define MOVE_CTR_36         1293
+#define MOVE_CTR_37         1294
+#define MOVE_CTR_38         1295
+#define MOVE_CTR_39         1296
+#define MOVE_CTR_40         1297
+#define MOVE_CTR_41         1298
+#define MOVE_CTR_42         1299
+#define MOVE_CTR_43         1300
+#define MOVE_CTR_44         1301
+#define MOVE_CTR_45         1302
+#define MOVE_CTR_46         1303
+#define MOVE_CTR_47         1304
+#define MOVE_CTR_48         1305
+#define MOVE_CTR_49         1306
+#define MOVE_CTR_50         1307
+#define MOVE_CTR_51         1308
+#define MOVE_CTR_52         1309
+#define MOVE_CTR_53         1310
+#define MOVE_CTR_54         1311
+#define MOVE_CTR_55         1312
+#define MOVE_CTR_56         1313
+#define MOVE_CTR_57         1314
+#define MOVE_CTR_58         1315
+#define MOVE_CTR_59         1316
+#define MOVE_CTR_60         1317
+#define MOVE_CTR_61         1318
+#define MOVE_CTR_62         1319
+#define MOVE_CTR_63         1320
+#define MOVE_CTR_64         1321
+#define MOVE_CTR_65         1322
+#define MOVE_CTR_66         1323
+#define MOVE_CTR_67         1324
+#define MOVE_CTR_68         1325
+#define MOVE_CTR_69         1326
+#define MOVE_CTR_70         1327
+#define MOVE_CTR_71         1328
+#define MOVE_CTR_72         1329
+#define MOVE_CTR_73         1330
+#define MOVE_CTR_74         1331
+#define MOVE_CTR_75         1332
+#define MOVE_CTR_76         1333
+#define MOVE_CTR_77         1334
+#define MOVE_CTR_78         1335
+#define MOVE_CTR_79         1336
+#define MOVE_CTR_80         1337
+#define MOVE_CTR_81         1338
+#define MOVE_CTR_82         1339
+#define MOVE_CTR_83         1340
+#define MOVE_CTR_84         1341
+#define MOVE_CTR_85         1342
+#define MOVE_CTR_86         1343
+#define MOVE_CTR_87         1344
+#define MOVE_CTR_88         1345
+#define MOVE_CTR_89         1346
+#define MOVE_CTR_90         1347
+#define MOVE_CTR_91         1348
+#define MOVE_CTR_92         1349
+#define MOVE_CTR_93         1350
+#define MOVE_CTR_94         1351
+#define MOVE_CTR_95         1352
+#define MOVE_CTR_96         1353
+#define MOVE_CTR_97         1354
+#define MOVE_CTR_98         1355
+#define MOVE_CTR_99         1356
+#define MOVE_CTR_100        1357
+#define MOVE_CTR_101        1358
+#define MOVE_CTR_102        1359
+#define MOVE_CTR_103        1360
+#define MOVE_CTR_104        1361
+#define MOVE_CTR_105        1362
+#define MOVE_CTR_106        1363
+#define MOVE_CTR_107        1364
+#define MOVE_CTR_108        1365
+#define MOVE_CTR_109        1366
+#define MOVE_CTR_110        1367
+#define MOVE_CTR_111        1368
+#define MOVE_CTR_112        1369
+#define MOVE_CTR_113        1370
+#define MOVE_CTR_114        1371
+#define MOVE_CTR_115        1372
+#define MOVE_CTR_116        1373
+#define MOVE_CTR_117        1374
+#define MOVE_CTR_118        1375
+#define MOVE_CTR_119        1376
+#define MOVE_CTR_120        1377
+#define MOVE_CTR_121        1378
+#define MOVE_CTR_122        1379
+#define MOVE_CTR_123        1380
+#define MOVE_CTR_124        1381
+#define MOVE_CTR_125        1382
+#define MOVE_CTR_126        1383
+#define MOVE_CTR_127        1384
+#define MOVE_CTR_128        1385
+#define MOVE_CTR_129        1386
+#define MOVE_CTR_130        1387
+#define MOVE_CTR_131        1388
+#define MOVE_CTR_132        1389
+#define MOVE_CTR_133        1390
+#define MOVE_CTR_134        1391
+#define MOVE_CTR_135        1392
+#define MOVE_CTR_136        1393
+#define MOVE_CTR_137        1394
+#define MOVE_CTR_138        1395
+#define MOVE_CTR_139        1396
+#define MOVE_CTR_140        1397
+#define MOVE_CTR_141        1398
+#define MOVE_CTR_142        1399
+#define MOVE_CTR_143        1400
+#define MOVE_CTR_144        1401
+#define MOVE_CTR_145        1402
+#define MOVE_CTR_146        1403
+#define MOVE_CTR_147        1404
+#define MOVE_CTR_148        1405
+#define MOVE_CTR_149        1406
+#define MOVE_CTR_150        1407
+
 /**************************************************************************************************
  Typedefs  */
 
@@ -1309,9 +1461,6 @@
 
 /**************************************************************************************************
  Globals  */
-                                                                    //  6,008 bytes.
-unsigned char zobristHashBuffer[ZHASH_TABLE_SIZE * 8];              //  Global array containing the serialized Zobrist-hasher values (unsigned long longs).
-                                                                    //  "Keys" are simply unisnged int values #defined above.
 
 /* Because it indexes into "zobristHashBuffer", the hash function is defined in negamax.cpp. */
 

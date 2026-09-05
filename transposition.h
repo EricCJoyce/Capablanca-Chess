@@ -1,7 +1,6 @@
 #ifndef __TRANSPOSITION_H
 #define __TRANSPOSITION_H
 
-#include <stdlib.h>
 #include <string.h>                                                 /* Needed for memcpy(). */
 
 #define _MOVE_BYTE_SIZE                3                            /* Number of bytes needed to store a Move structure. */
@@ -27,7 +26,9 @@ typedef struct TranspoRecordType                                    //  TOTAL: 1
     unsigned long long lock;                                        //  (8 bytes) A copy of the Zobrist hash to match against.
                                                                     //            (MUCH cheaper than storing the game state's bytes!)
     unsigned char bestMove[_MOVE_BYTE_SIZE];                        //  (3 bytes) The best move for this record, stored as a byte array.
-    unsigned char depth;                                            //  (1 byte)  The depth FROM WHICH evaluation of this node is ratified.
+    signed char depth;                                              //  (1 byte)  Search depth ratifying this record.
+                                                                    //            Positive = ordinary search;
+                                                                    //            0/-1/... = successive quiescence depths.
     float score;                                                    //  (4 bytes) 32 bits are plenty.
     unsigned char type;                                             //  (1 byte)  In {NODE_TYPE_NONE, NODE_TYPE_PV, NODE_TYPE_ALL, NODE_TYPE_CUT} as
                                                                     //            score is exact, an upper bound, or lower bound, respectively.
@@ -92,24 +93,21 @@ unsigned int hashIndex(unsigned long long h)
    When "buffer" is the global byte array "transpositionTableBuffer", it is at an offset into that array, treated locally. */
 void serializeTranspoRecord(TranspoRecord* ttRecord, unsigned char* buffer)
   {
-    unsigned int i = 0, j;
-    unsigned char buffer4[4];
+    unsigned int i = 0;
 
-    memcpy(buffer4, (unsigned char*)(&ttRecord->lock), 4);          //  Force the unsigned int into a 4-byte temp buffer.
-    for(j = 0; j < 4; j++)                                          //  Copy bytes to serial buffer.
-      buffer[i++] = buffer4[j];
+    memcpy(buffer + i, &ttRecord->lock, 8);                         //  Copy lock, as bytes, to serial buffer.
+    i += 8;
 
-    for(j = 0; j < _MOVE_BYTE_SIZE; j++)                            //  Copy best-move's byte array to the serial buffer.
-      buffer[i++] = ttRecord->bestMove[j];
+    memcpy(buffer + i, ttRecord->bestMove, _MOVE_BYTE_SIZE);        //  Copy best-move's byte array to the serial buffer.
+    i += _MOVE_BYTE_SIZE;
 
-    buffer[i++] = ttRecord->depth;                                  //  Copy the depth to the serial buffer.
+    memcpy(buffer + i, &ttRecord->depth, 1);                        //  Copy the depth to the serial buffer.
+    i++;
 
-    memcpy(buffer4, (unsigned char*)(&ttRecord->score), 4);         //  Force the float into a 4-byte temp buffer.
-    for(j = 0; j < 4; j++)                                          //  Copy bytes to serial buffer.
-      buffer[i++] = buffer4[j];
+    memcpy(buffer + i, &ttRecord->score, 4);                        //  Copy score, as bytes, to serial buffer.
+    i += 4;
 
     buffer[i++] = ttRecord->type;                                   //  Copy the node's type to the serial buffer.
-
     buffer[i++] = ttRecord->age;                                    //  Copy the node's age to the serial buffer.
 
     return;
@@ -119,28 +117,21 @@ void serializeTranspoRecord(TranspoRecord* ttRecord, unsigned char* buffer)
    When "buffer" is the global byte array "transpositionTableBuffer", it is at an offset into that array, treated locally. */
 void deserializeTranspoRecord(unsigned char* buffer, TranspoRecord* ttRecord)
   {
-    unsigned int i = 0, j;
-    unsigned char buffer4[4];
-    unsigned int ui4;
-    float f4;
+    unsigned int i = 0;
 
-    for(j = 0; j < 4; j++)                                          //  Copy 4 bytes from the serial buffer.
-      buffer4[j] = buffer[i++];
-    memcpy(&ui4, buffer4, 4);                                       //  Force the 4-byte buffer into an unsigned int.
-    ttRecord->lock = ui4;                                           //  Restore lock to the TranspoRecord.
+    memcpy(&ttRecord->lock, buffer + i, 8);                         //  Restore the lock to the TranspoRecord.
+    i += 8;
 
-    for(j = 0; j < _MOVE_BYTE_SIZE; j++)                            //  Restore bestMove to the TranspoRecord.
-      ttRecord->bestMove[j] = buffer[i++];
+    memcpy(ttRecord->bestMove, buffer + i, _MOVE_BYTE_SIZE);        //  Restore bestMove to the TranspoRecord.
+    i += _MOVE_BYTE_SIZE;
 
-    ttRecord->depth = buffer[i++];                                  //  Restore depth to the TranspoRecord.
+    memcpy(&ttRecord->depth, buffer + i, 1);                        //  Restore depth to the TranspoRecord.
+    i++;
 
-    for(j = 0; j < 4; j++)                                          //  Copy 4 bytes from the serial buffer.
-      buffer4[j] = buffer[i++];
-    memcpy(&f4, buffer4, 4);                                        //  Force the 4-byte buffer into a float.
-    ttRecord->score = f4;                                           //  Restore score to the TranspoRecord.
+    memcpy(&ttRecord->score, buffer + i, 4);                        //  Restore score to the TranspoRecord.
+    i += 4;
 
     ttRecord->type = buffer[i++];                                   //  Restore type to the TranspoRecord.
-
     ttRecord->age = buffer[i++];                                    //  Restore age to the TranspoRecord.
 
     return;

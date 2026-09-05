@@ -110,8 +110,7 @@ function move(a, b)
                                                                     //  The A.I. promotion routine updates the game state at the end of promotion.
                 else
                   {
-                                                                    //  Update the game state.
-                    gameEngine.instance.exports.makeMove_client(a, b, _NO_PROMO);
+                    pluto.commitRealMove(a, b, _NO_PROMO);          //  Update the game state (and OBSERVE the update).
                     swapTurns();                                    //  Nobody's promoting now, swap turns.
                   }
               }
@@ -130,8 +129,7 @@ function move(a, b)
                                                                     //  THERFORE **DO NOT** UPDATE THE GAME-ENGINE YET!!!
                 else
                   {
-                                                                    //  Update the game state.
-                    gameEngine.instance.exports.makeMove_client(a, b, _NO_PROMO);
+                    pluto.commitRealMove(a, b, _NO_PROMO);          //  Update the game state (and OBSERVE the update).
                     swapTurns();                                    //  Nobody's promoting now, swap turns.
                   }
               }
@@ -314,7 +312,7 @@ function completeCastle(a, b, c, d)
           });
         tweenTail.onComplete(function()
           {
-            gameEngine.instance.exports.makeMove_client(a, b, _NO_PROMO);
+            pluto.commitRealMove(a, b, _NO_PROMO);                  //  Update the game state (and OBSERVE the update).
             swapTurns();                                            //  Nobody's promoting now, swap turns.
           });
 
@@ -447,7 +445,7 @@ function completePromotionHuman(a, b, p)
           }
       }
 
-    gameEngine.instance.exports.makeMove_client(a, b, p);           //  HERE UPDATE THE GAME-ENGINE!!!
+    pluto.commitRealMove(a, b, p);                                  //  HERE UPDATE THE GAME-ENGINE!!! (And OBSERVE the update.)
 
     gamePieces[gamePieces.length - 1].chessposition = b;
     gamePieces[gamePieces.length - 1].position.x = convIndexToX(b);
@@ -598,7 +596,7 @@ function completePromotionAI(a, b, p)
           }
       }
 
-    gameEngine.instance.exports.makeMove_client(a, b, p);           //  HERE UPDATE THE GAME-ENGINE!!!
+    pluto.commitRealMove(a, b, p);                                  //  HERE UPDATE THE GAME-ENGINE!!! (And OBSERVE the update.)
 
     gamePieces[gamePieces.length - 1].chessposition = b;
     gamePieces[gamePieces.length - 1].position.x = convIndexToX(b);
